@@ -117,7 +117,7 @@ export function Subscriptions({ onCount }: { onCount?: (n: number) => void }) {
             {humanDate(s.proposedCancelled.receivedAt.slice(0, 10))}
           </a>
           <button className="sub-note-act" type="button" disabled={busy === s.key} onClick={() => decide(s, 'cancelled')}>
-            Looks cancelled — confirm
+            Looks cancelled. Confirm?
           </button>
         </span>
       )}

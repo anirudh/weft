@@ -18,6 +18,7 @@ import { env } from '../env.js';
 import { generateJson, type ThinkingLevel } from '../vertex/client.js';
 import { SYSTEM, SCHEMA, buildExtractionPrompt, buildThreadText } from '../pipeline/extract.js';
 import { alreadySettled } from '../pipeline/settled.js';
+import { lintVoice, formatViolations } from '@weft/shared';
 
 type Fixture = {
   id: string; note: string; today: string; subject: string; knownGap?: boolean;
@@ -69,8 +70,29 @@ async function once(f: Fixture): Promise<{ obligations: Obl[]; tokens: number; t
   return { obligations: kept, tokens: usage.promptTokens + usage.outputTokens, thoughts: usage.thoughtTokens };
 }
 
+/**
+ * Titles and details are read by the reader, so they answer to voice.md like
+ * every other user-facing string.
+ *
+ * Checked here rather than instructed in the prompt. Adding the wording rules to
+ * the extraction prompt was measured and destabilised two fixtures that had been
+ * stable, so the guidance stays in voice.md and the enforcement moved to where it
+ * costs nothing and fails loudly.
+ */
+function judgeVoice(got: Obl[]): string | null {
+  for (const o of got) {
+    for (const text of [o.title, o.detail].filter(Boolean)) {
+      const v = lintVoice(text as string);
+      if (v.length) return formatViolations(text as string, v).replace(/\n/g, ' ');
+    }
+  }
+  return null;
+}
+
 /** Why a run failed, in the fewest words that let you act on it. */
 function judge(f: Fixture, got: Obl[]): string | null {
+  const voiceFail = judgeVoice(got);
+  if (voiceFail) return voiceFail;
   if (f.expect.obligations === 'none') {
     return got.length === 0 ? null : `expected nothing, got ${got.length}: ${got.map((o) => o.title).join('; ').slice(0, 60)}`;
   }

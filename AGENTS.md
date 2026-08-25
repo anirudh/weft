@@ -79,7 +79,11 @@ changes the product direction.
    Ambiguous undated items decay rather than receiving invented urgency.
 5. **Use calm, forward-facing language.** The product says "Do today", "Still open?",
    and "Worth chasing", never "late", "failed", or "overdue". Urgency is carried by
-   ordering and wording, not alarm colours or motivational theatre.
+   ordering and wording, not alarm colours or motivational theatre. The rules live
+   in `voice.md`, which is loaded into the prompts rather than described by them,
+   and its mechanical half is a test. This governs every user-facing string,
+   including the ones written in code: the reader cannot tell which words a model
+   wrote.
 6. **User decisions are distinct and reversible.** Completing means it happened;
    dismissing means it will not happen. Keeping a subscription still counts its cost;
    cancelling removes it from the running total but preserves an undoable record.
@@ -186,6 +190,9 @@ mail-derived rows are account-scoped from the first migration.
 - UI shell and views: `apps/web/src/App.tsx`, `Horizon.tsx`, `Subscriptions.tsx`
 - Model regression corpus: `apps/server/src/eval/README.md`, `eval/run.ts`, and
   `eval/fixtures/`
+- Product voice: `voice.md` at the repo root, loaded by `pipeline/voice.ts` and
+  enforced by `packages/shared/src/voice-lint.ts`. The brief corpus that measures
+  a voice change is `eval/brief-cases.ts` and `eval/brief-run.ts`.
 
 ## Working in this repository
 

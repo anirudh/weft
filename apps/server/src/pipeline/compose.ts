@@ -1,9 +1,11 @@
 import { createHash } from 'node:crypto';
 import { desc, eq } from 'drizzle-orm';
 import type { Edition, Obligation, WeekDay } from '@weft/shared';
+import { formatViolations, lintVoice } from '@weft/shared';
 import { db, schema } from '../db/index.js';
 import { env } from '../env.js';
 import { generateJson, type ThinkingLevel } from '../vertex/client.js';
+import { VOICE_PROSE } from './voice.js';
 
 /**
  * The one paragraph at the top of the page. Everything below it is a list the
@@ -16,7 +18,7 @@ import { generateJson, type ThinkingLevel } from '../vertex/client.js';
  * free, and the hash changes the moment the open set does.
  */
 
-const SCHEMA = {
+export const SCHEMA = {
   type: 'OBJECT',
   properties: {
     headline: {
@@ -32,7 +34,7 @@ const SCHEMA = {
   required: ['headline', 'notes'],
 } as const;
 
-const SYSTEM = `You write the standing summary at the top of a daily mail brief.
+export const SYSTEM = `You write the standing summary at the top of a daily mail brief.
 
 Below your text the reader already sees every open obligation with its own date
 label, a seven-day calendar, and the mail itself. Restating any of that is wasted
@@ -49,16 +51,9 @@ Then two to four notes. Each must earn its place by doing one of these:
 - naming the one thing that actually matters most today, and why
 - pointing out a genuinely empty stretch, when there is one
 
-Voice:
-- Forward-facing. Never "you are late", "overdue", "you missed". If a date has
-  passed, the question is whether it is still open, not whose fault it is.
-- Plain and calm. No exclamation marks, no urgency theatre, no motivational lines.
-- Second person, present tense. Short sentences.
-- Never invent anything. Every fact must come from the data given. If you are not
-  sure of a detail, leave it out rather than guess it.
-- Do not thank, encourage, or comment on how busy the reader is.`;
+${VOICE_PROSE}`;
 
-const EXAMPLE = `<example>
+export const EXAMPLE = `<example>
 <input>Today is Monday 24 August.
 YOUR COURT
 - [By tomorrow] Confirm attendance for the Brightpath trial class — class is tomorrow at 16:00
@@ -162,6 +157,16 @@ async function composeNow(input: ComposeInput, hash: string): Promise<void> {
     const headline = String(data?.headline ?? '').trim();
     const notes = (Array.isArray(data?.notes) ? data.notes : []).map((n) => String(n).trim()).filter(Boolean);
     if (!headline) return;
+
+    // The lint reports, it does not gate. A brief that breaks a voice rule is
+    // still more useful than no brief, and the page beneath it must not depend
+    // on prose passing a regex. The brief corpus is where this fails a build;
+    // here it just leaves a trail when the model drifts on real mail that no
+    // fixture covers.
+    for (const text of [headline, ...notes]) {
+      const violations = lintVoice(text);
+      if (violations.length) console.warn(formatViolations(text, violations));
+    }
 
     await db
       .insert(schema.editions)

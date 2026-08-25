@@ -149,3 +149,66 @@ of being deleted or silently tolerated.
 Regenerating from source needs a mailbox with message bodies still persisted,
 which production deliberately no longer keeps. That is why the output is
 committed rather than rebuilt.
+
+## The brief corpus
+
+`npm run eval:brief` does for the composer what the corpus above does for the
+extractor. It is separate because it exercises a different prompt on a different
+model, and a voice change should not have to pay for 46 extraction calls.
+
+The assertions are a different shape, because there is no correct brief. Two good
+briefs about the same day share no sentences. So the cases in `brief-cases.ts`
+assert only what is true of every good brief and no bad one:
+
+- it obeys the mechanical rules in `voice.md`, via `lintVoice()`
+- the headline is at most 14 words and does not greet
+- there are two to four notes
+- **every money figure in the brief appears in the input**, or is the exact sum
+  of figures that do
+
+The last one is the reason this exists. A reader can catch a clumsy sentence.
+They cannot catch a number that was never in their mail, and the brief is prose
+about money.
+
+That check is strict on purpose, and it will fire on arithmetic that happens to
+be correct. Removing the "never invent" rule from `voice.md` produced "about $125
+a month" from a set of renewals whose figures sum to $104.74. The $125 was right
+in the sense that it normalised a weekly price to a monthly one. It was still a
+number the reader had never seen. The rule the product wants is that the brief
+quotes figures rather than deriving them, and the check enforces exactly that.
+If a real total is worth showing, compute it in code and pass it in.
+
+`--print` shows the briefs. Nothing else judges the half no assertion reaches, so
+read them after a voice change.
+
+## voice.md
+
+The prompts do not carry their own voice rules. `voice.md` at the repo root is
+the source, and `pipeline/voice.ts` interpolates sections of it into both. This
+exists because the rules had already drifted: the composer carried five and the
+extractor carried one, and they disagreed.
+
+The composer gets Voice, Never write these, and Judgment. The extractor gets none
+of it: it keeps a one-line rule pointing here, and `judge()` runs `lintVoice()`
+over every title and detail before the structural checks.
+
+That choice is on principle, not measurement, and the attempt to measure it is
+worth recording because it failed instructively.
+
+Wiring the wording rules into the extraction prompt appeared to cost two
+fixtures. Five three-repetition runs, in order: 46/46 and 46/46 on the baseline,
+44/46 with the section added, 46/46 after trimming it, 44/46 after changing one
+word of an example, and 45/46 back at baseline plus three lines of comment. The
+fixtures that wobbled were not even consistent between runs.
+
+So the honest reading is that this corpus has a run-to-run spread of about two
+fixtures at three repetitions, and a difference of that size cannot be attributed
+to anything. The first 44/46 looked like a regression and the following 46/46
+looked like a fix. Neither was established. Resolving a two-fixture difference
+would take roughly ten repetitions per arm, which is about 2.3M tokens each.
+
+**Do not read a two-fixture difference at `--reps 3` as a result.** Either spend
+the repetitions or decide on other grounds. Here the other grounds were enough:
+enforcing wording by lint costs nothing per thread and fails loudly, while
+enforcing it by prompt costs ~900 calls' worth of tokens and can only be hoped
+for.

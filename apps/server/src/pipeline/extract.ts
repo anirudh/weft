@@ -166,7 +166,10 @@ Rules:
   the text, and copy the exact source words into anchorQuote. If the text states no
   date, set anchorDate to "" and anchorIsExplicit to false. Do not infer a date from
   urgency.
-- Titles are short and imperative, written from the reader's point of view.
+- Titles are short and imperative, written from the reader's point of view. The
+  full wording rules live in voice.md and are checked by the eval rather than
+  restated here: see the note in eval/README.md on why this prompt carries a
+  pointer instead of the section.
 - For a recurring charge — a subscription, membership, plan or domain — also fill
   service, amount, currency and cadence. These are a structured copy of what you
   would put in detail anyway: service is the bare name ("Lightbox", not "Decide on

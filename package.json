@@ -15,7 +15,8 @@
     "dev:web": "npm run dev --workspace=@weft/web",
     "build": "npm run build --workspace=@weft/web",
     "test": "npm run test --workspace=@weft/server",
-    "eval": "tsx apps/server/src/eval/run.ts"
+    "eval": "tsx apps/server/src/eval/run.ts",
+    "eval:brief": "tsx apps/server/src/eval/brief-run.ts"
   },
   "devDependencies": {
     "concurrently": "^9.1.0",

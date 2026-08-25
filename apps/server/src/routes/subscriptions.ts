@@ -46,7 +46,7 @@ function manageLink(from: string, name: string, detail: string): { url: string; 
   return null;
 }
 
-function label(days: number | null, paused: boolean): string {
+export function label(days: number | null, paused: boolean): string {
   if (paused) return 'Paused';
   if (days === null) return 'No date given';
   if (days < 0) return 'Renewed';
