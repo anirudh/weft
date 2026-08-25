@@ -133,6 +133,9 @@ export const HorizonPayload = z.object({
     dismissed: z.array(Obligation),
   }),
   week: z.array(WeekDay),
+  /** Commitments beyond the seven-day window, or without a usable date. They
+   *  left the task list, so the calendar has to hold all of them or they vanish. */
+  later: z.array(z.object({ id: z.number(), title: z.string(), whenLabel: z.string() })),
   mail: z.array(MailRow),
   stats: z.object({
     messagesTotal: z.number(),

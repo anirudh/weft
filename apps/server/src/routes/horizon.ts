@@ -78,8 +78,13 @@ export async function horizonRoutes(app: FastifyInstance) {
     const byScore = (a: Obligation, b: Obligation) => b.score - a.score;
 
     // Reference and ambient are deliberately absent: findable, never surfaced.
-    const yours = open.filter((o) => o.court === 'yours').sort(byScore).slice(0, 12);
-    const theirs = open.filter((o) => o.court === 'theirs').sort(byScore).slice(0, 12);
+    //
+    // Events are absent too, and for a different reason. You do not DO an event,
+    // you turn up to it, and This Week already draws them against the days they
+    // fall on. Listing them here as well made a task list that was 38% calendar.
+    const isEvent = (o: Obligation) => o.temporalClass === 'event';
+    const yours = open.filter((o) => o.court === 'yours' && !isEvent(o)).sort(byScore).slice(0, 12);
+    const theirs = open.filter((o) => o.court === 'theirs' && !isEvent(o)).sort(byScore).slice(0, 12);
 
     // Anything cleared in the last day stays on screen so Undo is reachable —
     // a mis-click must never silently bury something real. After that it goes,
@@ -107,6 +112,19 @@ export async function horizonRoutes(app: FastifyInstance) {
         ).map((o) => ({ id: o.id, title: o.title })),
       };
     });
+
+    // Everything the seven-day grid cannot hold. Without this, moving events out
+    // of the task list would silently delete both flights, three school first
+    // days and an AGM from the page — 15 live commitments, measured.
+    const weekEnd = week[week.length - 1]?.date ?? '';
+    const later = dedupe(
+      ranked.filter(
+        (o) => live(o) && isEvent(o) && o.bucket !== 'receded' && (o.anchorDate === null || o.anchorDate > weekEnd),
+      ),
+    )
+      .sort((a, b) => (a.anchorDate ?? '9999').localeCompare(b.anchorDate ?? '9999'))
+      .slice(0, 10)
+      .map((o) => ({ id: o.id, title: o.title, whenLabel: o.whenLabel }));
 
     // The brief is written last, from what the reader will actually see. It is
     // cached on a hash of those exact inputs, so re-opening Horizon without new
@@ -187,6 +205,7 @@ export async function horizonRoutes(app: FastifyInstance) {
       edition,
       openLoops: { yours, theirs, completed, dismissed },
       week,
+      later,
       mail,
       stats: {
         messagesTotal: Number(counts?.total ?? 0),

@@ -75,7 +75,10 @@ export function score(o: Rankable, now: number): number {
       return 0.3;
 
     case 'event':
-      if (d === null) return 0.4;
+      // Undated events decay on thread age for the same reason undated
+      // deadlines do: with no date, the only evidence it is still live is that
+      // somebody mentioned it recently.
+      if (d === null) return 0.4 * Math.pow(0.5, daysSince(o.lastMessageAt, now) / 10);
       if (d < -1) return 0.05;                 // passed: recedes hard
       if (d <= 0) return 0.9;
       if (d <= 2) return 0.8;

@@ -154,3 +154,14 @@ body {
 .btn-faint:hover:not(:disabled) { color: var(--body); }
 .btn-faint:disabled, .btn-quiet:disabled { opacity: 0.4; cursor: default; }
 .court-label-spaced { display: block; margin-top: 26px; }
+
+/* Commitments past the seven-day grid. Present, but never louder than this week. */
+.later { display: flex; gap: 22px; margin-top: 22px; padding-top: 16px; border-top: 1px solid var(--line-soft); }
+.later-label {
+  flex: 0 0 auto; font-size: 12px; font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--faint); padding-top: 2px;
+}
+.later-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.later-list li { display: flex; gap: 14px; align-items: baseline; font-size: 14px; }
+.later-when { flex: 0 0 96px; color: var(--muted); font-size: 12px; letter-spacing: 0.02em; }
+.later-title { color: var(--body); }

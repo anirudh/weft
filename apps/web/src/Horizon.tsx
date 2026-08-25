@@ -122,9 +122,9 @@ export function Horizon() {
         <section className="section">
           <div className="section-head">
             <span className="section-label">This week</span>
-            <span className="section-note">every deadline and event — click any item to open it</span>
+            <span className="section-note">every commitment and deadline, by the day it falls on</span>
           </div>
-          <ThisWeek days={data.week} />
+          <ThisWeek days={data.week} later={data.later} />
         </section>
 
         <section className="section">
