@@ -1,0 +1,19 @@
+{
+  "id": "none-optional-perk",
+  "note": "Hand-written. A member newsletter with a discount perk buried among other notices. Distinct from promo-expiring-credit: a credit was already paid for, a percentage-off code was never owned. Not captured — the real newsletter named other local businesses, a phone number and three towns, none of which a sender-based anonymiser can see, and together those locate a person.",
+  "today": "2026-08-20",
+  "subject": "The Quarterly - your member newsletter",
+  "messages": [
+    {
+      "fromName": "Meridian Club",
+      "fromEmail": "news@meridianclub.example",
+      "subject": "The Quarterly - your member newsletter",
+      "date": "2026-08-19",
+      "isSent": false,
+      "body": "Welcome to The Quarterly, your member newsletter.\n\nTennis Court Resurfacing\n\nBeginning 29 August all tennis courts will close for resurfacing and are expected to reopen on 7 September. Courts at our sister site remain open to members throughout.\n\nLast Weeks of Summer Camp\n\nMake the most of the final weeks with camps for every interest, from sports and cooking to robotics and outdoor adventures. Flexible single-day and weeklong options are available. Enrol through the member portal.\n\nIndoor Football: Autumn Adult Leagues\n\nAutumn indoor leagues kick off in mid-September and there is still time to register as a team or an individual. Leagues are available for all skill levels.\n\nAugust Member Perk\n\nElevate your everyday with organic cotton sheets, towels and bedding from one of our retail partners. Enjoy an exclusive 15% member-only discount plus a complimentary gift with purchase. Use code MEM15 at checkout. Explore all Perks in the member portal.\n\nGroup Swim Lessons\n\nEnrolment opens 20 August. Build confidence in the water with eight-week group lessons for all ages, from six months to adults.\n\nBilling reminder\n\nMonthly statements are available on the 1st of each month. Payment is due by the last day of the month. AutoPay is processed on the 16th, so no action is needed if you are enrolled.\n\nWe will see you around the Club.\n\n*Member Perk: offer valid 1-31 August 2026. Use code MEM15 at checkout. Qualifying orders include a complimentary gift while supplies last. Terms and exclusions apply.\n\nThis email was sent to m.sterling82@eastvale.example. To stop receiving these, update your preferences in the member portal."
+    }
+  ],
+  "expect": {
+    "obligations": "none"
+  }
+}

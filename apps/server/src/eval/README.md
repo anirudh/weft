@@ -52,6 +52,13 @@ would. So every sender identity in the source mailbox is mapped to an invented
 one deterministically. Which brand a message is from never affects how it should
 be classified, so nothing is lost.
 
+Sender mapping does not see third parties. A gym newsletter mentioned another
+club, a retail brand, a phone number and three towns — none of them senders,
+all of them together enough to locate a person. Geography is an identifier and
+the first two sweeps missed it entirely. Anything captured from a rich HTML
+newsletter is better hand-written; several fixtures here are, and each says so
+in its own note.
+
 Two bugs that pass silently if you are not looking for them, both now fixed and
 worth knowing about if you extend this:
 
@@ -60,6 +67,25 @@ worth knowing about if you extend this:
 - Substituting on raw JSON text does not work. An escaped newline is the two
   characters `\` and `n`, so every word starting a line looks preceded by the
   letter `n` and boundary checks silently fail. Scrub parsed values.
+
+## What the suite actually scores
+
+45 fixtures, and it runs 41-44 of them depending on the roll. A handful sit on
+the model's decision boundary and flicker between runs: a prepaid credit that
+expires, a statement whose fine print says auto-pay is on, a security notice
+that says no action is needed, a support auto-reply read as waiting_on. Those
+are genuinely ambiguous emails, not wording bugs, and chasing them with prompt
+edits has twice cost more than it returned.
+
+Thinking level was measured rather than assumed:
+
+| level | boundary cases | thought tokens |
+|---|---|---|
+| minimal | 18/24 | 0 |
+| low | 23/24 | ~1,000 per suite run |
+| medium | no better than low | ~100,000 per suite run |
+
+`low` is the setting. Use `--thinking` to re-measure if the model changes.
 
 ## Labels are the weak link
 

@@ -90,6 +90,21 @@ however firm the date:
   like housekeeping and are NOT: a real security incident such as a breach or a
   locked account, a payment that has already failed, and a card about to expire on a
   service the reader pays for. Those have consequences and do belong.
+- Notices with nothing to decide. A statement made available, an account summary, a
+  case or application status update, a programme announcing that it has begun. The
+  reader can sign in and look; looking changes nothing. A statement DOES belong when
+  money is owed by a date, or when it names a specific thing the reader has to change
+  — an escrow analysis saying the standing transfer must be updated is an obligation,
+  the same statement with nothing to adjust is not.
+- Optional participation. Calls for proposals, award nominations, council or committee
+  applications, speaker sign-ups, invitations to send in questions, member perks and
+  discount codes. Nothing anywhere changes if the reader never does these. Applying
+  for something the reader actually needs — a place, a waitlist, a school bus — is not
+  optional participation and does belong.
+- Updated terms, policies and consent settings where a default carries over if the
+  reader does nothing. Privacy policy revisions, consent preference updates, new terms
+  of service. Accepting the default is a normal outcome, not a failure. A change to
+  what the reader PAYS is a different thing and belongs.
 - Events the reader is not actually going to: a webinar, summit, launch or party
   being advertised to a mailing list. The dividing line is whether this reader is
   booked in — they registered, RSVP'd, were invited by name, or it is on their
@@ -114,7 +129,16 @@ WHAT IS ALWAYS WORTH EXTRACTING:
   is an obligation; the same camp asking how the session went is not.
 - Every appointment, class, camp session, lesson, flight and meeting, including ones
   that arrive as calendar invitations.
+- A credit, voucher, session or balance the reader has already paid for that will
+  expire unused. They own it, and it is about to become nothing. This is narrow and
+  means paid-for: a percentage-off code or a member discount was never theirs and
+  stays out.
 - Anything the reader personally asked for that has not arrived.
+
+Every exclusion above describes mail that asks nothing of the reader. None of them
+applies to court "theirs": if the reader asked a person or an organisation for
+something and no answer has come back, that is a waiting_on no matter what else is
+on this list.
 
 The exclusions above are a list of specific shapes, not an instruction to be sparing.
 Measured: each one alone is harmless, but together they start suppressing genuine
@@ -129,7 +153,12 @@ Rules:
   date, set anchorDate to "" and anchorIsExplicit to false. Do not infer a date from
   urgency.
 - Titles are short and imperative, written from the reader's point of view.
-- One obligation per distinct action. Do not restate the same action twice.`;
+- One obligation per distinct action. Do not restate the same action twice.
+- A single email often carries several separate obligations. A welcome pack can name
+  a fee to pay, a form that reduces that fee, a second form needed only in some
+  circumstances, and a start date — that is four, not one. Read to the end and return
+  every one. Finding something excluded in one paragraph is never a reason to stop
+  reading the rest: exclusions remove a part, never the whole message.`;
 
 export const EXAMPLES = `<examples>
 <example>

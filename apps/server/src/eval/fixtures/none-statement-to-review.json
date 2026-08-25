@@ -1,0 +1,19 @@
+{
+  "id": "none-statement-to-review",
+  "note": "Hand-written. A statement made available with nothing owed and nothing to change. Pairs with guard-statement-with-lever, which is the same shape plus a specific thing to adjust — that pair is the whole rule. Not captured: the real thread was a brokerage statement, and financial-identity mail stays out of a Cedarline corpus.",
+  "today": "2026-08-10",
+  "subject": "Your half-yearly retention statement is now available",
+  "messages": [
+    {
+      "fromName": "Kestrel Securities",
+      "fromEmail": "statements@kestrel.example",
+      "subject": "Your half-yearly retention statement is now available",
+      "date": "2026-08-09",
+      "isSent": false,
+      "body": "Dear Client,\n\nAs required by regulation, we are sending you the half-yearly retention statement of funds and securities held in your account for the period 1 February 2026 to 31 July 2026.\n\nAccount: KS-4471-9920\nStatement period: 01-Feb-2026 to 31-Jul-2026\n\nThe statement is attached and is also available under Reports in your account portal at https://portal.kestrel.example/reports.\n\nThis statement is provided for your records. No payment is due and no response is required.\n\nShould you notice any discrepancy in the statement, please write to support@kestrel.example or contact your nearest branch within 30 days of receipt.\n\nPlease do not reply to this email. This mailbox is not monitored.\n\nRegards,\nClient Services\nKestrel Securities Limited\n\nRegistered with the Exchange. Investments are subject to market risk. Read all related documents carefully before investing."
+    }
+  ],
+  "expect": {
+    "obligations": "none"
+  }
+}

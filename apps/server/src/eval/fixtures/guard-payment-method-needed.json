@@ -1,0 +1,20 @@
+{
+  "id": "guard-payment-method-needed",
+  "note": "Adding a payment method so money owed to the reader can actually reach them. Looks like account setup; there is real money behind it.",
+  "today": "2026-07-31",
+  "subject": "Information needed to process your payment",
+  "messages": [
+    {
+      "fromName": "Cedarline",
+      "fromEmail": "noreply@cedarline.example",
+      "subject": "Information needed to process your payment",
+      "date": "2026-07-30",
+      "isSent": false,
+      "body": "Cedarline Sports Concerts Theatre Hello Marcus, We have attempted to pay you for the following sales: (831954207). However, you do not have a default payment method set up for receiving payments. You can do this by signing into \"My Account\". Under the \"Settings\" tab, go to “Payment” and just select your payment method. If you have previously had a default payment method set, for security purposes, we require sellers to reselect their default payment method. Once re-added, please ensure that you select the badge next to the payment name and click ‘Set as default’. Add payment method Once you have successfully added and selected your payment method for getting paid, the payment will automatically be initiated again. Support Centre My Account Sell Tickets Settings About Us Privacy Copyright &copy; 2026 Cedarline. All rights reserved 456 Market Street, Suite 800, San Francisco, CA, 94105"
+    }
+  ],
+  "expect": {
+    "obligations": "some",
+    "court": "yours"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "none-consent-terms-update",
+  "note": "Hand-written. A consent setting changes and the existing preference carries over unless the reader intervenes. Technically a decision with a real default, which is exactly why it needs pinning: these arrive constantly and accepting the default is a normal outcome, not a failure. A change to what the reader PAYS is different and belongs.",
+  "today": "2026-08-15",
+  "subject": "We are updating our Research Consent Document",
+  "messages": [
+    {
+      "fromName": "Alder Genomics",
+      "fromEmail": "no-reply@alder.example",
+      "subject": "We are updating our Research Consent Document",
+      "date": "2026-08-14",
+      "isSent": false,
+      "body": "Hello,\n\nWe are writing to let you know that we have updated our Research Consent Document and our Biobanking Consent Document, effective 15 September 2026.\n\nWhat is changing\n\nWe have clarified how long biological samples are retained, added detail about which categories of research partner may receive de-identified data, and simplified the language throughout. The updated documents are available at https://www.alder.example/legal/research-consent.\n\nWhat this means for you\n\nYour current consent selections carry over unchanged. You do not need to do anything.\n\nIf you would like to review or change your choices, you can do so at any time under Settings, then Privacy and Data, then Research Preferences. Changes take effect immediately and you may revise them as often as you wish.\n\nIf you have questions, our Privacy team is at privacy@alder.example.\n\nThank you,\nThe Alder Genomics Team\n\nYou are receiving this because you hold an Alder Genomics account. This is a service notification and cannot be unsubscribed from."
+    }
+  ],
+  "expect": {
+    "obligations": "none"
+  }
+}

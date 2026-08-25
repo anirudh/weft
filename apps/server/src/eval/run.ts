@@ -21,7 +21,7 @@ import { SYSTEM, SCHEMA, buildExtractionPrompt, buildThreadText } from '../pipel
 type Fixture = {
   id: string; note: string; today: string; subject: string; knownGap?: boolean;
   messages: { fromName: string; fromEmail: string; subject: string; date: string; isSent: boolean; body: string }[];
-  expect: { obligations: 'none' } | { obligations: 'some'; court?: string; temporalClass?: string; anchorDate?: string };
+  expect: { obligations: 'none' } | { obligations: 'some'; court?: string; temporalClass?: string; anchorDate?: string; atLeast?: number };
 };
 
 const DIR = resolve(process.cwd(), 'apps/server/src/eval/fixtures');
@@ -30,6 +30,9 @@ const arg = (flag: string) => {
   return i === -1 ? undefined : process.argv[i + 1];
 };
 const REPS = Math.max(1, Number(arg('--reps') ?? 1));
+/** Override the extractor's thinking level, to test whether a wobbling fixture
+ *  is a wording problem or the model sitting on its decision boundary. */
+const THINKING = (arg('--thinking') ?? env.GEMINI_EXTRACT_THINKING) as ThinkingLevel;
 const ONLY = arg('--only');
 
 const fixtures: Fixture[] = readdirSync(DIR)
@@ -40,7 +43,7 @@ const fixtures: Fixture[] = readdirSync(DIR)
 
 type Obl = { court: string; temporalClass: string; anchorDate: string; title: string };
 
-async function once(f: Fixture): Promise<{ obligations: Obl[]; tokens: number }> {
+async function once(f: Fixture): Promise<{ obligations: Obl[]; tokens: number; thoughts: number }> {
   const { text } = buildThreadText(
     f.messages.map((m) => ({
       fromName: m.fromName, fromEmail: m.fromEmail, subject: m.subject,
@@ -52,11 +55,11 @@ async function once(f: Fixture): Promise<{ obligations: Obl[]; tokens: number }>
     system: SYSTEM,
     user: buildExtractionPrompt({ threadText: text, subject: f.subject, today: f.today, accountEmail: 'reader@example.com' }),
     schema: SCHEMA as unknown as Record<string, unknown>,
-    thinkingLevel: env.GEMINI_EXTRACT_THINKING as ThinkingLevel,
+    thinkingLevel: THINKING,
   });
   const parsed = ExtractionResult.safeParse(data);
   if (!parsed.success) throw new Error('schema mismatch');
-  return { obligations: parsed.data.obligations as unknown as Obl[], tokens: usage.promptTokens + usage.outputTokens };
+  return { obligations: parsed.data.obligations as unknown as Obl[], tokens: usage.promptTokens + usage.outputTokens, thoughts: usage.thoughtTokens };
 }
 
 /** Why a run failed, in the fewest words that let you act on it. */
@@ -66,6 +69,9 @@ function judge(f: Fixture, got: Obl[]): string | null {
   }
   if (got.length === 0) return 'expected an obligation, got none';
   const e = f.expect;
+  if (e.atLeast && got.length < e.atLeast) {
+    return `expected at least ${e.atLeast}, got ${got.length}: ${got.map((o) => o.title).join('; ').slice(0, 70)}`;
+  }
   if (e.court && !got.some((o) => o.court === e.court)) return `no obligation in ${e.court} court (got ${got.map((o) => o.court).join(',')})`;
   if (e.temporalClass && !got.some((o) => o.temporalClass === e.temporalClass)) return `no ${e.temporalClass} (got ${got.map((o) => o.temporalClass).join(',')})`;
   if (e.anchorDate !== undefined && !got.some((o) => (o.anchorDate ?? '') === e.anchorDate)) {
@@ -82,7 +88,7 @@ async function pool<T>(items: T[], limit: number, fn: (i: T) => Promise<void>) {
 }
 
 const results = new Map<string, { passes: number; failures: string[] }>();
-let tokens = 0;
+let tokens = 0, thoughts = 0;
 const jobs = fixtures.flatMap((f) => Array.from({ length: REPS }, () => f));
 
 await pool(jobs, 6, async (f) => {
@@ -90,6 +96,7 @@ await pool(jobs, 6, async (f) => {
   try {
     const r = await once(f);
     tokens += r.tokens;
+    thoughts += r.thoughts;
     why = judge(f, r.obligations);
   } catch (err) {
     why = `error: ${String(err).slice(0, 60)}`;
@@ -114,6 +121,6 @@ for (const f of fixtures) {
   console.log(`          ${f.note}`);
 }
 
-console.log(`\n  ${pass}/${fixtures.length - gaps} passed · ${gaps} known gap(s) · ${flaky} flaky · ${tokens.toLocaleString()} tokens`);
+console.log(`\n  ${pass}/${fixtures.length - gaps} passed · ${gaps} known gap(s) · ${flaky} flaky · ${tokens.toLocaleString()} tokens + ${thoughts.toLocaleString()} thought`);
 if (fail > 0) console.log('  regression: a fixture that used to hold no longer does.');
 process.exit(fail > 0 ? 1 : 0);

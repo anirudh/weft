@@ -1,0 +1,21 @@
+{
+  "id": "guard-multi-topic-email",
+  "note": "Hand-written. One welcome email carrying four separate things: a fee to pay, a form that halves that fee, a conditional medication form, and a start date. The real version of this regressed from four obligations to one when exclusion rules were added — the model found the least useful item and stopped. Excluding one part of an email must never mean abandoning the rest.",
+  "today": "2026-08-20",
+  "subject": "Welcome to the Club - 2026-2027 school year",
+  "messages": [
+    {
+      "fromName": "Oakfield Youth Club",
+      "fromEmail": "programs@oakfieldclub.example",
+      "subject": "Welcome to the Club - 2026-2027 school year",
+      "date": "2026-08-19",
+      "isSent": false,
+      "body": "Dear Families,\n\nWelcome to the 2026-2027 school year! We are looking forward to seeing everyone. Please read this message in full, as it covers several things we need from you before the first day.\n\nFamily Handbook\n\nAttached you will find the Family Handbook. Please familiarise yourself with its contents; it explains our behaviour policy, pick-up procedures and closure days.\n\nProgram dues\n\nMonthly dues are $180 per child and are due by the 5th of each month. Payments can be made in the parent portal. Accounts more than 30 days past due may lose their place in the programme.\n\nEmployer verification\n\nIf your employer participates in our partner scheme, submitting the Employer Verification Form in the parent portal covers 50 percent of your monthly dues. Forms received after 15 September 2026 apply from the following month, so earlier is better.\n\nMedication\n\nIf your child needs medication while at the Club, please complete the attached Medication Authorization Form and bring it with you along with the medication. Staff cannot administer anything without a completed form on file.\n\nFirst day\n\nThe programme begins on 8 September 2026. We are open Monday through Friday from school release until 6:00pm.\n\nWe are glad to have you with us.\n\nThe Oakfield Youth Club Team"
+    }
+  ],
+  "expect": {
+    "obligations": "some",
+    "court": "yours",
+    "atLeast": 3
+  }
+}

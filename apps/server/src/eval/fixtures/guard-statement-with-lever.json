@@ -1,0 +1,20 @@
+{
+  "id": "guard-statement-with-lever",
+  "note": "Hand-written. The same shape as none-statement-to-review, except this one names a specific thing to change: the escrow amount moved and the automatic transfer has to be updated to match. A statement is not automatically noise — it depends whether there is a lever.",
+  "today": "2026-08-10",
+  "subject": "Your annual escrow analysis is ready",
+  "messages": [
+    {
+      "fromName": "Wexford Credit Union",
+      "fromEmail": "noreply@wexford.example",
+      "subject": "Your annual escrow analysis is ready",
+      "date": "2026-08-09",
+      "isSent": false,
+      "body": "Hello,\n\nYour annual escrow analysis for the loan ending 4192 is now available in online banking.\n\nWhat changed\n\nYour property taxes and hazard insurance premium both increased this year. As a result your monthly escrow payment is changing.\n\n  Previous total monthly payment ......... $3,412.18\n  New total monthly payment .............. $3,589.44\n  Effective with the payment due .......... 1 October 2026\n\nAction needed\n\nIf you pay your mortgage by automatic transfer from another institution, that transfer will not update on its own. You must change the transfer amount to $3,589.44 before your 1 October 2026 payment, or the payment will post short and a late fee may apply.\n\nIf you pay through Wexford online banking, no action is needed - we will adjust the amount for you.\n\nView the full analysis at https://banking.wexford.example/escrow.\n\nWexford Credit Union | Federally insured by NCUA | Equal Housing Opportunity"
+    }
+  ],
+  "expect": {
+    "obligations": "some",
+    "court": "yours"
+  }
+}

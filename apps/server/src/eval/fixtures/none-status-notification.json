@@ -1,0 +1,19 @@
+{
+  "id": "none-status-notification",
+  "note": "Hand-written. Something moved and the reader is told to sign in and look. Looking changes nothing, and no action is requested. The commonest shape of a notice that reads urgent and asks for nothing.",
+  "today": "2026-08-12",
+  "subject": "There has been an update on your application",
+  "messages": [
+    {
+      "fromName": "Halcyon Licensing Board",
+      "fromEmail": "donotreply@halcyon.example",
+      "subject": "There has been an update on your application",
+      "date": "2026-08-11",
+      "isSent": false,
+      "body": "Application Status Update\n\nApplication number: HLB-2026-338104\n\nAn action was taken on your application on 11 August 2026.\n\nTo view the current status and any correspondence, sign in to your account at https://portal.halcyon.example and select View My Applications.\n\nStatus updates are posted to your account as they occur. Processing times vary by application type and current volume. You do not need to contact us about routine status changes; doing so does not affect processing.\n\nIf correspondence requiring your response has been issued, it will be listed separately in your account and will state the date by which a reply is required.\n\nPlease do not reply to this message. This mailbox is not monitored.\n\nHalcyon Licensing Board"
+    }
+  ],
+  "expect": {
+    "obligations": "none"
+  }
+}

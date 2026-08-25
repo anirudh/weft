@@ -21,7 +21,15 @@
 
 export type Expectation =
   | { obligations: 'none' }
-  | { obligations: 'some'; court?: 'yours' | 'theirs'; temporalClass?: string; anchorDate?: string };
+  | {
+      obligations: 'some';
+      court?: 'yours' | 'theirs';
+      temporalClass?: string;
+      anchorDate?: string;
+      /** Minimum distinct obligations. For emails that carry several, where the
+       *  failure is finding one of them and stopping rather than misclassifying. */
+      atLeast?: number;
+    };
 
 export type Case = {
   id: string;
@@ -159,6 +167,43 @@ export const CASES: Case[] = [
   { id: 'guard-payment-method',
     note: 'Updating a card on a paid service. Looks like account housekeeping; a lapsed card stops the service.',
     expect: { obligations: 'some', court: 'yours' } },
+
+  // ── Nothing to decide, and nothing that changes if skipped. ──
+  { id: 'none-optional-conference-proposal',
+    note: "A call for session proposals with a firm deadline. Nothing anywhere changes if the reader never submits.",
+    expect: { obligations: 'none' } },
+  { id: 'none-optional-perk',
+    note: 'See the fixture file - hand-written, not captured.',
+    expect: { obligations: 'none' } },
+  { id: 'none-optional-questions',
+    note: "An invitation to send in questions before a session. Optional participation wearing the shape of a reply.",
+    expect: { obligations: 'none' } },
+
+  // ── Guards for this round. ──
+  { id: 'guard-payment-method-needed',
+    note: "Adding a payment method so money owed to the reader can actually reach them. Looks like account setup; there is real money behind it.",
+    expect: { obligations: 'some', court: 'yours' } },
+
+  // ── Hand-written: statements, status notices and consent updates are
+  //    financial- or health-identifying in their real form. See each fixture. ──
+  { id: 'none-statement-to-review',
+    note: 'See the fixture file - hand-written, not captured.',
+    expect: { obligations: 'none' } },
+  { id: 'guard-statement-with-lever',
+    note: 'See the fixture file - hand-written, not captured.',
+    expect: { obligations: 'some', court: 'yours' } },
+  { id: 'none-consent-terms-update',
+    note: 'See the fixture file - hand-written, not captured.',
+    expect: { obligations: 'none' } },
+  { id: 'none-status-notification',
+    note: 'See the fixture file - hand-written, not captured.',
+    expect: { obligations: 'none' } },
+
+  // ── Enumeration, not classification: one email, several obligations. ──
+  { id: 'guard-multi-topic-email',
+    note: 'See the fixture file - hand-written. Guards against exclusion rules causing '
+        + 'wholesale abandonment of a dense email rather than removal of one part.',
+    expect: { obligations: 'some', court: 'yours', atLeast: 3 } },
 
   // ── Known gaps: reported, not failed. ──
   { id: 'gap-account-verification',
