@@ -1,0 +1,19 @@
+{
+  "id": "none-survey-camp-evaluation",
+  "note": "A camp asking for feedback on a session that already happened. Tests that a school or camp asking does not by itself make a request an obligation - the sharpest edge of this rule.",
+  "today": "2026-08-11",
+  "subject": "Important Evaluation - Tell Us About Leo Sterling's Program Today",
+  "messages": [
+    {
+      "fromName": "Wilderness Quest",
+      "fromEmail": "contact@havenside.example",
+      "subject": "Important Evaluation - Tell Us About Leo Sterling's Program Today",
+      "date": "2026-08-10",
+      "isSent": false,
+      "body": "Dear Marcus Vance,\n\nThank you for joining Wilderness Quest today! Feedback helps us create our adventures. We need your help. Take a moment to share your family's story with us. These evaluations are very important.\n\nTwo-Minute Check-In: https://new.wildernessquest.org/surveys/new\n\nFeedback How-To:\n- We use this daily insight to be flexible to the needs of our student community.\n- Feedback is how we collaborate, helping co-create better experiences for every student.\n- Both appreciative and constructive feedback inform our staff of what to do more or less.\n\nThe Wilderness Quest Staff thanks you for your appreciations, constructives, and feedback! For any immediate inquiries or needs, reach out to (800) 555-0142 or contact@havenside.example.\n\nSee You In The Forest,\n\nFamily Success"
+    }
+  ],
+  "expect": {
+    "obligations": "none"
+  }
+}

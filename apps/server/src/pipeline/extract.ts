@@ -74,6 +74,22 @@ however firm the date:
 - Anything that completes on its own: a refund already approved and in transit, a
   package on its way, a service that resumes automatically, an account that renews
   without the reader doing anything. Nobody is waiting on anybody.
+- A subject line is not evidence, in either direction. "Action required", "Urgent"
+  and "Final notice" appear on marketing constantly, and a genuine obligation is
+  often worded flatly. Read the body, not the header.
+- Requests for the reader's opinion. Satisfaction surveys, programme evaluations,
+  feedback forms, review requests, research panels, "how did we do". Someone would
+  like the reader's time; nobody is owed anything, and nothing anywhere changes if it
+  never happens. This holds when a school, a camp or a doctor is asking — a real
+  sender does not make a request an obligation.
+- Account housekeeping. Verifying or confirming an email address, adding a phone
+  number, setting a password, completing a profile, or reviewing routine sign-in
+  activity. A message that tells the reader no action is needed if it was them is a
+  notification, whatever the subject line calls itself. These sit in an account
+  indefinitely at no cost. Three things that look
+  like housekeeping and are NOT: a real security incident such as a breach or a
+  locked account, a payment that has already failed, and a card about to expire on a
+  service the reader pays for. Those have consequences and do belong.
 - Events the reader is not actually going to: a webinar, summit, launch or party
   being advertised to a mailing list. The dividing line is whether this reader is
   booked in — they registered, RSVP'd, were invited by name, or it is on their
@@ -89,14 +105,22 @@ WHAT IS ALWAYS WORTH EXTRACTING:
   never names a price — trials convert by default, so the end date is the last day the
   reader can decide. This is the one case where a marketing email carries a real
   obligation, because the reader's own money is already committed to moving.
-- Anything a school, camp, employer, doctor, government body, bank or brokerage asks
-  the reader to complete, return, confirm or schedule: a form, a survey, an
-  evaluation, a preference, an appointment to book, a statement to review. These are
-  obligations even when nothing visibly goes wrong if they are skipped, because a
-  real person is expecting them back.
+- Anything a school, camp, employer, doctor, government body, bank or brokerage needs
+  back: a form, a waiver, a consent, a document, a preference, an appointment to
+  book, a statement with money owed, a declaration that changes what the reader is
+  charged. These are obligations even when nothing visibly goes wrong if they are
+  skipped, because a real person is expecting them back. The one exception is a
+  request for feedback, covered above — a waiver a child cannot attend camp without
+  is an obligation; the same camp asking how the session went is not.
 - Every appointment, class, camp session, lesson, flight and meeting, including ones
   that arrive as calendar invitations.
 - Anything the reader personally asked for that has not arrived.
+
+The exclusions above are a list of specific shapes, not an instruction to be sparing.
+Measured: each one alone is harmless, but together they start suppressing genuine
+obligations that sit near the line — a real waiting_on was lost this way. If a thread
+does ask something of the reader, or the reader is genuinely owed an answer, extract
+it. Only the shapes named above are excluded.
 
 Rules:
 - Return an empty list when the thread creates no obligation. Most mail creates none.

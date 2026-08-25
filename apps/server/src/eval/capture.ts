@@ -133,11 +133,27 @@ async function capture(c: (typeof CASES)[number]) {
 }
 
 mkdirSync(OUT, { recursive: true });
-let ok = 0;
+
+/**
+ * Additive by default, and this matters more than it looks.
+ *
+ * The scrub is a model call, so re-capturing a case produces a different body.
+ * Regenerating the whole corpus to add one fixture silently rewrote the other
+ * 35 and two of them started failing against an unchanged prompt — a corpus
+ * that moves when you add to it is not frozen, and every comparison across it
+ * is worthless. Pass --force to deliberately rebuild.
+ */
+const force = process.argv.includes('--force');
+let ok = 0, kept = 0;
 for (const c of CASES) {
+  if (!force && existsSync(resolve(OUT, `${c.id}.json`))) {
+    kept++;
+    continue;
+  }
   const r = await capture(c);
   if (r.ok) ok++;
   console.log(`  ${r.ok ? 'ok  ' : 'MISS'} ${r.id.padEnd(30)} ${r.why}`);
 }
-console.log(`\n${ok}/${CASES.length} captured into ${OUT}`);
+console.log(`\n${ok} captured, ${kept} already present and left alone, into ${OUT}`);
+if (kept && !force) console.log('run with --force to rebuild existing fixtures (this changes them).');
 process.exit(0);

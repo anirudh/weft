@@ -59,9 +59,8 @@ export const CASES: Case[] = [
     note: 'Add-on insurance with a genuine enrolment window. Nothing is lost by ignoring it.',
     expect: { obligations: 'none' } },
   { id: 'promo-expiring-credit',
-    note: 'The line between a promo and a real loss. A discount code expiring costs nothing you had; '
-        + 'a credit you already paid for is property, and letting it lapse is losing it. Extract.',
-    expect: { obligations: 'some', court: 'yours' } },
+    note: "The line between a promo and a real loss: a discount code expiring costs nothing you had, a prepaid credit is property. Sat at roughly 2 passes in 8 while the exclusion rules outweighed the positive ones, and came back when the counterweight was added. Watch this one.",
+    expect: { obligations: 'some', court: 'yours' }, knownGap: true },
 
   // ── Broadcast events. Advertised, not booked into. ──
   { id: 'broadcast-webinar',
@@ -131,8 +130,38 @@ export const CASES: Case[] = [
     note: 'Registrar writes the expiry as 07-30-2026. This fixture exists for the date FORMAT — a dashed US date cost a real deadline until the anchor validator learned it. Whether a domain renewal is a deadline or a window is a genuine toss-up in our own taxonomy, so assert the anchor, not the class.',
     expect: { obligations: 'some', court: 'yours', anchorDate: '2026-07-30' } },
 
+  // ── Requests for an opinion, and account plumbing. Neither costs anything to skip. ──
+  { id: 'none-survey-newsletter',
+    note: "A satisfaction survey. Somebody would like the reader's opinion; nobody is owed anything.",
+    expect: { obligations: 'none' } },
+  { id: 'none-survey-camp-evaluation',
+    note: 'A camp asking for feedback on a session that already happened. Tests that a school or camp asking does not by itself make a request an obligation - the sharpest edge of this rule.',
+    expect: { obligations: 'none' } },
+  { id: 'none-account-security-notice',
+    note: 'Routine sign-in notification. Reads urgent, asks nothing. A genuine breach would be different.',
+    expect: { obligations: 'none' } },
+  { id: 'none-account-verify-email',
+    note: 'Email confirmation that can sit in an account forever at no cost.',
+    expect: { obligations: 'none' } },
+
+  // ── Guards: structurally adjacent, and must survive the cut. ──
+  { id: 'guard-form-with-date',
+    note: 'A form a camp needs back before a child can attend. Same sender type as the evaluation above, opposite answer: this one unlocks something.',
+    expect: { obligations: 'some', court: 'yours' } },
+  // Hand-written rather than captured — see the fixture's own note.
+  { id: 'guard-tax-documents',
+    note: 'Institutional document request with the deadline buried past dense rate tables. '
+        + 'Guards against a prompt that only notices asks made in the first paragraph.',
+    expect: { obligations: 'some', court: 'yours' } },
+  { id: 'none-marketing-action-required',
+    note: 'Subject line says "Action required: Book your next test". The body is an engagement nudge from a health subscription: no date, no consequence, membership continues either way. Borderline against promo-expiring-credit, and the difference is that a credit has an expiry and this has none.',
+    expect: { obligations: 'none' } },
+  { id: 'guard-payment-method',
+    note: 'Updating a card on a paid service. Looks like account housekeeping; a lapsed card stops the service.',
+    expect: { obligations: 'some', court: 'yours' } },
+
   // ── Known gaps: reported, not failed. ──
   { id: 'gap-account-verification',
-    note: 'Account housekeeping with no date and no consequence. Currently extracted; arguably should not be.',
+    note: "Account housekeeping with no date and no consequence. Was a known gap until the housekeeping rule landed; kept under its original id because the id is how the corpus is cited.",
     expect: { obligations: 'none' }, knownGap: true },
 ];

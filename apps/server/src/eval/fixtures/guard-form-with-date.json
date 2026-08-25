@@ -1,0 +1,20 @@
+{
+  "id": "guard-form-with-date",
+  "note": "A form a camp needs back before a child can attend. Same sender type as the evaluation above, opposite answer: this one unlocks something.",
+  "today": "2026-08-02",
+  "subject": "Snowy Ridge AM Ski camp",
+  "messages": [
+    {
+      "fromName": "Snowy Ridge Camps",
+      "fromEmail": "info@ironwood.example",
+      "subject": "Snowy Ridge AM Ski camp",
+      "date": "2026-08-01",
+      "isSent": false,
+      "body": "You are registered for an upcoming Summer Camp through Snowy Ridge. We look forward to having you join us for Indoor Ski Camp which begins on Monday August 3rd.\n\nYour first day is just around the corner, so please review the following information to ensure a successful first day at camp:\n\nDates & Times:\n9:30am-12:30pm\n\nDrop Off & Pick Up Locations\nPick up and drop off is Snowy Ridge. Our address is:\n4820 148th Ave NE\nRedmond, WA 98052\n\n\nPlease Remember To Bring The Following:\n\n· A completed Medical Waiver (required on the first day if not already completed)\n\n· Comfortable clothes and socks!\n\n· Water and snacks.\n\n\n\nWe also request that campers leave all electronics at home. If you are wanting them to bring a cell phone it will need to stay in their backpack at all times. Thank you for your understanding.\n\nIf you have any questions, please call us at 206-555-0182 or email us at info@ironwood.example. We can't wait to see you on Monday!"
+    }
+  ],
+  "expect": {
+    "obligations": "some",
+    "court": "yours"
+  }
+}

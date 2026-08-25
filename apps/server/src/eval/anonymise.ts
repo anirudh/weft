@@ -115,8 +115,12 @@ function scrub(text: string): { out: string; hits: string[] } {
     const re = new RegExp(`(?<![A-Za-z0-9])${escape(real)}${tail}`, 'gi');
     if (re.test(out)) { hits.push(real); out = out.replace(re, fake); }
   }
-  // Any remaining address on a real-looking domain becomes an example.com one.
+  // Any remaining address on a real-looking domain becomes an example one.
+  // Addresses already on .example are left exactly as they are: re-running this
+  // pass must not churn them, or every fixture shows as modified and a corpus
+  // that is supposed to be frozen quietly moves under the eval.
   out = out.replace(/[\w.+-]+@[\w.-]+\.\w{2,}/g, (m) => {
+    if (/\.example$/i.test(m)) return m;
     const local = m.split('@')[0]!.toLowerCase().replace(/[^a-z0-9._-]/g, '');
     return `${local}@${pick(BRANDS, m).toLowerCase()}.example`;
   });

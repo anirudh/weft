@@ -1,0 +1,19 @@
+{
+  "id": "none-marketing-action-required",
+  "note": "Subject line says \"Action required: Book your next test\". The body is an engagement nudge from a health subscription: no date, no consequence, membership continues either way. Borderline against promo-expiring-credit, and the difference is that a credit has an expiry and this has none.",
+  "today": "2026-08-11",
+  "subject": "Action required: Book your next test.",
+  "messages": [
+    {
+      "fromName": "Joss Bramley",
+      "fromEmail": "notifications@orrell.example",
+      "subject": "Action required: Book your next test.",
+      "date": "2026-08-10",
+      "isSent": false,
+      "body": "Schedule your next test to track your progress.\n\n\n\n <https://my.Larkspur.com/>\n\nSchedule now  <https://my.Larkspur.com/book-your-lab-tests>\nSchedule now  <https://my.Larkspur.com/book-your-lab-tests>\n\n\n\n\nHi Marcus,  \n\n\n\n\nYour health can change a lot in 6 months. See what’s new with your Mid-Year \nTest, included in your Function membership.\n\nFunction helps you retest 60+ key biomarkers that could change quickly. You \nmay see changes in hs-CRP (inflammation) by 30 days, Triglycerides (heart \nhealth) within 60 days, and HbA1c (average blood sugar) in 90 days.\n\n\nSchedule your test now, and add optional On-Demand Tests for deeper \ninsights—all in one visit.\n\n\n\nSchedule now  <https://my.Larkspur.com/book-your-lab-tests>\nSchedule now  <https://my.Larkspur.com/book-your-lab-tests>\n\n\n\nTo 100 healthy years,  \nThe Function Team\n\n\n\n\n\n\n\n\nDownload Function App \n <https://apps.Belmont.com/us/app/function-health/id0000000000> \n <https://play.ironwood.example/store/apps/details?id=com.Larkspur> \nMember login  <https://my.Larkspur.com/> \nContact us  <https://www.Larkspur.com/faq> \n\n\n <https://www.Kingsley.com/function>  \n<https://www.linkedin.com/company/Larkspur>  <https://x.com/function>  \n<https://www.Windrow.com/askfunction> \n\n\n\n\n\n Subscriptions will automatically renew annually at the then-current price, \nunless you cancel prior to the end of the initial membership period. You will \nbe required to set up an account, have a valid payment method on file, and \naccept the terms of an automatically renewing paid subscription. Certain lab \nfees will be due at or after each lab visit in NY and NJ. Joss Bramley is \nnot a laboratory or medical provider, and does not diagnose, treat, or monitor \nmedical conditions. All material, information, data, and content provided by \nFunction are for general informational purposes only and should not be relied \nupon as a substitute for professional medical advice. Please consult a licensed \nhealthcare professional for any questions regarding your health.. See Function \nTerms of Service <https://www.Larkspur.com/terms-of-service> and Ezra \nTerms of Service <https://ezra.com/telehealth> for details. \nUnsubscribe \n<https://links.Larkspur.co/unsubscribe>\n© Joss Bramley, Inc. 2026. All rights reserved.\n450 Main St, Suite 800, Denver, CO 80202 \n<https://maps.ironwood.example/>"
+    }
+  ],
+  "expect": {
+    "obligations": "none"
+  }
+}

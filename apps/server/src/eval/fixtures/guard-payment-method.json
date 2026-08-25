@@ -1,0 +1,20 @@
+{
+  "id": "guard-payment-method",
+  "note": "Updating a card on a paid service. Looks like account housekeeping; a lapsed card stops the service.",
+  "today": "2026-08-18",
+  "subject": "Regarding your recent request",
+  "messages": [
+    {
+      "fromName": "Julian from 1pass",
+      "fromEmail": "no-reply@halcyon.example",
+      "subject": "Regarding your recent request",
+      "date": "2026-08-17",
+      "isSent": false,
+      "body": "Account status update A brief update regarding your account is available. Hi tyler.m92@netherby.example We’re writing to let you know that the payment method for your account needs to be updated. Please visit your account settings to confirm or replace your current billing details. This will keep your account active. Update payment method If you already made this change, please ignore this email. For help, visit the support section in your account dashboard. 5678 Pinecrest Boulevard, Suite 450, Denver, CO 80202, USA"
+    }
+  ],
+  "expect": {
+    "obligations": "some",
+    "court": "yours"
+  }
+}

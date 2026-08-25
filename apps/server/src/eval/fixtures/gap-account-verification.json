@@ -1,6 +1,6 @@
 {
   "id": "gap-account-verification",
-  "note": "Account housekeeping with no date and no consequence. Currently extracted; arguably should not be.",
+  "note": "Account housekeeping with no date and no consequence. Was a known gap until the housekeeping rule landed; kept under its original id because the id is how the corpus is cited.",
   "today": "2026-07-27",
   "subject": "New Cranwell Account Email Verification",
   "messages": [
@@ -10,11 +10,10 @@
       "subject": "New Cranwell Account Email Verification",
       "date": "2026-07-26",
       "isSent": false,
-      "body": "Hello,\n\n\nVerify My Email Address: \nhttps://store.loxley.example/account/newaccountverification\n\n\nCranwell requires a verified email address so you can take full advantage of Cranwell\nfeatures like Cranwell Guard security, the Cranwell Community Market, Cranwell Trading -\nand so you can safely recover your account in the future.\n\n\n\nManage Email Preferences\n\nValve may also occasionally send you emails to inform you about games and events\non Cranwell. If you do not wish to receive such messages or you wish to manage when\nyou will be contacted, you can set your email preferences at the following URL\nonce your account is created:\n\nhttps://store.loxley.example/account/notificationsettings\n--\n\nIf you didn't recently attempt to create a new account with this email address,\nyou can safely disregard this email.\n\n\n\n\n\tCheers,\nThe Mira Sale\n\n--\n\nThis notification has been sent to the email address associated with your Cranwell account.\n\nThis email message was auto-generated. Please do not respond. If you need additional help, please visit Nadia Orr.\nhttps://help.loxley.example\n\n© Valve Corporation\nAll rights reserved. All trademarks are property of their respective owners in the US and other countries.\n\n--\n\nView this message on the web:\nhttps://store.loxley.example/email/AccountCreationEmailVerification"
+      "body": "Hello,\n\n\nVerify My Email Address: \nhttps://store.loxley.example/account/newaccountverification\n\n\nCranwell requires a verified email address so you can take full advantage of Cranwell\nfeatures like Cranwell Guard security, the Cranwell Community Market, Cranwell Trading -\nand so you can safely recover your account in the future.\n\n\n\nManage Email Preferences\n\nValve may also occasionally send you emails to inform you about games and events\non Cranwell. If you do not wish to receive such messages or you wish to manage when\nyou will be contacted, you can set your email preferences at the following URL\nonce your account is created:\n\nhttps://store.loxley.example/account/notificationsettings\n--\n\nIf you didn't recently attempt to create a new account with this email address,\nyou can safely disregard this email.\n\n\n\n\n\tCheers,\nThe Mira Sale\n\n--\n\nThis notification has been sent to the email address associated with your Cranwell account.\n\nThis email message was auto-generated. Please do not respond. If you need additional help, please visit Nadia Orr.\nhttps://help.loxley.example\n\n\u00a9 Valve Corporation\nAll rights reserved. All trademarks are property of their respective owners in the US and other countries.\n\n--\n\nView this message on the web:\nhttps://store.loxley.example/email/AccountCreationEmailVerification"
     }
   ],
   "expect": {
     "obligations": "none"
-  },
-  "knownGap": true
+  }
 }

@@ -1,0 +1,19 @@
+{
+  "id": "none-account-verify-email",
+  "note": "Email confirmation that can sit in an account forever at no cost.",
+  "today": "2026-08-19",
+  "subject": "Confirm your email",
+  "messages": [
+    {
+      "fromName": "Joss Bramley",
+      "fromEmail": "identity@dunmore.example",
+      "subject": "Confirm your email",
+      "date": "2026-08-18",
+      "isSent": false,
+      "body": "Welcome email This is preheader text. Space can be used to show text as a preview. --> Welcome Julian , With your Ravensmere account you can sign in, edit your details and make institutional connections for a Kestrel of Ravensmere products. If you did not opt out when registering, you will receive marketing communications from us regarding relevant products and services. You can change your preference from your Ravensmere Account. Confirming your email address will ensure continued access to your account and the Ravensmere services you use. Confirm Email Or use this link: https://id.ravensmere.example/ext/emailsignIn The Ravensmere team *Link expired or not working? Get help here. Copyright © 2025 Ravensmere, its licensors, and contributors. All rights are reserved, including those for text and data mining, AI training, and similar technologies. About Ravensmere Terms and conditions Privacy policy Help"
+    }
+  ],
+  "expect": {
+    "obligations": "none"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "none-account-security-notice",
+  "note": "Routine sign-in notification. Reads urgent, asks nothing. A genuine breach would be different.",
+  "today": "2026-08-24",
+  "subject": "Security alert for devon.mccarthy@belmont.example",
+  "messages": [
+    {
+      "fromName": "Ironwood",
+      "fromEmail": "no-reply@wexford.example",
+      "subject": "Security alert for devon.mccarthy@belmont.example",
+      "date": "2026-08-23",
+      "isSent": false,
+      "body": "This is a copy of a security alert sent to devon.mccarthy@belmont.example.\ndev9mcc@wexford.example is the recovery email for this account. If you don't\nrecognize this account, remove\n<https://ironwood.example/AccountDisavow>\nit.\n[image: Ironwood]\nNew sign-in to your account\n\n\ndevon.mccarthy@belmont.example\nWe noticed a new sign-in to your Ironwood Account. If this was you, you don’t\nneed to do anything. If not, we’ll help you secure your account.\nCheck activity\n<https://ironwood.example/AccountChooser>\nYou can also see security activity at\nhttps://myaccount.ironwood.example/notifications\nYou received this email to let you know about important changes to your\nIronwood Account and services.\n© 2026 Ironwood LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA"
+    }
+  ],
+  "expect": {
+    "obligations": "none"
+  }
+}
