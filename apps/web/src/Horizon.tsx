@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { HorizonPayload, Obligation } from '@weft/shared';
-import { clearObligation, fetchHorizon } from './api.js';
+import { clearObligation, fetchHorizon, setSubscriptionState } from './api.js';
 import { Accounts } from './components/Accounts.js';
 import { MailTable } from './components/MailTable.js';
 import { OpenLoops } from './components/OpenLoops.js';
@@ -57,6 +57,35 @@ export function Horizon() {
       .finally(() => setBusy(null));
   };
 
+  /**
+   * Answer a renewal. Recorded against the service rather than this email, so
+   * next month's notice does not ask again — and the ledger picks up the same
+   * decision, because both surfaces read the same table.
+   */
+  const onDecide = (o: Obligation, state: 'kept' | 'cancelled') => {
+    setBusy(o.id);
+    setData((d) =>
+      !d
+        ? d
+        : {
+            ...d,
+            openLoops: {
+              ...d.openLoops,
+              yours: d.openLoops.yours.filter((x) => x.id !== o.id),
+              theirs: d.openLoops.theirs.filter((x) => x.id !== o.id),
+            },
+          },
+    );
+    // The name goes with it: a cancelled service whose last email ages out
+    // would otherwise show as a blank row in the collapsed list.
+    setSubscriptionState(o.service, state, o.service)
+      .catch((e: unknown) => setError(String(e)))
+      .finally(() => {
+        setBusy(null);
+        fetchHorizon().then(setData).catch((e: unknown) => setError(String(e)));
+      });
+  };
+
   if (error) return <main className="body"><p className="empty">Could not reach the server — {error}</p></main>;
   if (!data) return <main className="body"><p className="empty">Loading…</p></main>;
 
@@ -65,13 +94,6 @@ export function Horizon() {
 
   return (
     <>
-      <nav className="tabs">
-        <div className="tabs-left">
-          <span className="wordmark">Weft</span>
-          <span className="tab-active">Horizon</span>
-        </div>
-      </nav>
-
       <main className="body">
         <div className="title-row">
           <h1 className="title">{dateLabel(data.date)}</h1>
@@ -116,7 +138,8 @@ export function Horizon() {
               {open === 0 ? 'nothing open' : `${open} open across ${data.accounts.length} mailboxes`}
             </span>
           </div>
-          <OpenLoops {...data.openLoops} onClear={onClear} busy={busy} />
+          <OpenLoops
+          onDecide={onDecide} {...data.openLoops} onClear={onClear} busy={busy} />
         </section>
 
         <section className="section">

@@ -6,7 +6,7 @@ const ob = (o: Partial<Obligation>): Obligation => ({
   id: Math.random(), accountEmail: 'a@b.com', threadId: String(Math.random()), sourceMessageId: 'm',
   court: 'yours', temporalClass: 'event', anchorDate: '2026-09-08', anchorIsExplicit: true,
   anchorQuote: '', anchorValidated: true, title: '', detail: '', confidence: 0.9,
-  completedAt: null, dismissedAt: null, score: 0.8, bucket: 'this_week', whenLabel: 'Tuesday',
+  completedAt: null, dismissedAt: null, service: '', score: 0.8, bucket: 'this_week', whenLabel: 'Tuesday',
   ...o, mergedCount: o.mergedCount ?? 1,
 });
 

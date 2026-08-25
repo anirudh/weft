@@ -41,8 +41,8 @@ describe('deadlines', () => {
   });
 
   it('lets a live deadline outrank a passed one', () => {
-    // The case from a real Horizon: a Figma renewal three days gone was tying
-    // with things genuinely due in a week. The live one deserves the attention.
+    // The case from a real Horizon: a renewal three days gone was tying with
+    // things genuinely due in a week. The live one deserves the attention.
     const passed = at({ anchorDate: '2026-08-20' });   // three days ago
     const live = at({ anchorDate: '2026-08-30' });     // in seven days
     expect(score(live, NOW)).toBeGreaterThan(score(passed, NOW));

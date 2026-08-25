@@ -7,12 +7,13 @@ type Props = {
   completed: Obligation[];
   dismissed: Obligation[];
   onClear: (id: number, how: 'complete' | 'dismiss' | 'reopen') => void;
+  onDecide: (o: Obligation, state: 'kept' | 'cancelled') => void;
   busy: number | null;
 };
 
-export function OpenLoops({ yours, theirs, completed, dismissed, onClear, busy }: Props) {
+export function OpenLoops({ yours, theirs, completed, dismissed, onClear, onDecide, busy }: Props) {
   const card = (o: Obligation, primary = false) => (
-    <LoopCard key={o.id} o={o} primary={primary} onClear={onClear} busy={busy === o.id} />
+    <LoopCard key={o.id} o={o} primary={primary} onClear={onClear} onDecide={onDecide} busy={busy === o.id} />
   );
   // Completed and dismissed sit together under Your court: both are things you
   // cleared today, and both need to stay reachable long enough to undo.

@@ -80,6 +80,12 @@ export const obligations = sqliteTable('obligations', {
   title: text('title').notNull(),
   detail: text('detail').notNull().default(''),
   confidence: real('confidence').notNull().default(0),
+  /** Recurring-commitment fields. Empty on everything that is not one — the
+   *  subscriptions lens is defined by these being present, not by keywords. */
+  service: text('service').notNull().default(''),
+  amountCents: integer('amount_cents'),
+  currency: text('currency').notNull().default(''),
+  cadence: text('cadence').notNull().default(''),
   completedAt: integer('completed_at'),
   dismissedAt: integer('dismissed_at'),
   createdAt: integer('created_at').notNull(),
@@ -88,6 +94,16 @@ export const obligations = sqliteTable('obligations', {
   byThread: index('obligations_thread').on(t.threadId),
   byOpen: index('obligations_open').on(t.completedAt, t.dismissedAt),
 }));
+
+/** See migrations/0004. Keyed on the service so a decision survives next
+ *  month's renewal email. Active is the absence of a row. */
+export const subscriptionState = sqliteTable('subscription_state', {
+  serviceKey: text('service_key').primaryKey(),
+  /** kept | cancelled */
+  state: text('state').notNull(),
+  serviceName: text('service_name').notNull().default(''),
+  decidedAt: integer('decided_at').notNull(),
+});
 
 export const editions = sqliteTable('editions', {
   id: integer('id').primaryKey({ autoIncrement: true }),

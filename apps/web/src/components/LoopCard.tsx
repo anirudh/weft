@@ -4,11 +4,14 @@ type Props = {
   o: Obligation;
   primary: boolean;
   onClear: (id: number, how: 'complete' | 'dismiss' | 'reopen') => void;
+  /** Only for recurring charges: records the decision against the SERVICE, so
+   *  next month's renewal email does not bring the same card back. */
+  onDecide: (o: Obligation, state: 'kept' | 'cancelled') => void;
   busy: boolean;
 };
 
 /** One open loop. Open left, the two ways to close it right — per the final design. */
-export function LoopCard({ o, primary, onClear, busy }: Props) {
+export function LoopCard({ o, primary, onClear, onDecide, busy }: Props) {
   const done = Boolean(o.completedAt);
   const dropped = Boolean(o.dismissedAt);
   const cleared = done || dropped;
@@ -36,6 +39,19 @@ export function LoopCard({ o, primary, onClear, busy }: Props) {
             <button className="btn-quiet" type="button" disabled={busy} onClick={() => onClear(o.id, 'reopen')}>
               Undo
             </button>
+          ) : o.service ? (
+            /* A renewal is answered, not completed. "Mark as completed" would
+               close this email and leave the subscription untouched, so the
+               same card returns next month — and the ledger would still be
+               waiting on the same question. These two settle it for good. */
+            <>
+              <button className="btn-faint" type="button" disabled={busy} onClick={() => onDecide(o, 'kept')}>
+                Keeping
+              </button>
+              <button className="btn-quiet" type="button" disabled={busy} onClick={() => onDecide(o, 'cancelled')}>
+                Cancelled
+              </button>
+            </>
           ) : (
             <>
               {/* Dismiss sits left and quieter: it is the rarer choice, and it

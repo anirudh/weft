@@ -147,7 +147,8 @@ export function whenLabel(o: Rankable, now: number): string {
     case 'window':
       if (d === null) return 'Open';
       if (d < 0) return 'Closed';
-      if (d <= 1) return 'Closes tomorrow';
+      if (d === 0) return 'Closes today';
+      if (d === 1) return 'Closes tomorrow';
       return `Closes in ${d} days`;
 
     case 'waiting_on': {

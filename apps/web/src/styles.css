@@ -165,3 +165,114 @@ body {
 .later-list li { display: flex; gap: 14px; align-items: baseline; font-size: 14px; }
 .later-when { flex: 0 0 96px; color: var(--muted); font-size: 12px; letter-spacing: 0.02em; }
 .later-title { color: var(--body); }
+
+/* Tabs are buttons now that there is more than one. Reset the browser's idea of
+   what a button looks like so the nav reads as text, not as controls. */
+.tab, .tab-active {
+  display: flex; align-items: center; gap: 8px; height: 58px;
+  background: none; border: none; border-bottom: 2px solid transparent;
+  padding: 0; font-family: inherit; cursor: pointer;
+}
+.tab { font-size: 14px; color: var(--muted); }
+.tab:hover { color: var(--ink); }
+.tab-active { border-bottom-color: var(--cobalt); font-size: 14px; font-weight: 600; color: var(--cobalt); }
+.tab-count {
+  padding: 1px 7px; border-radius: 999px; background: var(--tint);
+  color: var(--cobalt); font-size: 11px; font-weight: 600;
+}
+.tab .tab-count { background: var(--line-soft); color: var(--muted); }
+
+/* ── Subscriptions lens ───────────────────────────────────────────────────
+   One number, then the rows that make it up. The total is the headline because
+   it is the thing no single email can tell you: each renewal notice looks small
+   on its own, and the sum is the only honest view of them. */
+.sub-head { display: flex; align-items: baseline; gap: 28px; flex-wrap: wrap; padding-bottom: 26px; }
+.sub-total { display: flex; align-items: baseline; gap: 10px; }
+.sub-total .section-label { align-self: center; }
+.sub-figure {
+  font-family: Newsreader, serif; font-size: 46px; font-weight: 600;
+  letter-spacing: -0.025em; line-height: 1; color: var(--ink);
+}
+.sub-figure-unit { font-size: 15px; color: var(--muted); }
+.sub-gloss { flex: 1; min-width: 260px; margin: 0; font-size: 14px; line-height: 22px; color: var(--muted); }
+
+.subs { display: flex; flex-direction: column; max-width: 1120px; }
+/* A row, not a card. Seventeen cards is a scroll; seventeen rows is a ledger,
+   and a ledger is what you read a list of prices as. */
+.sub {
+  display: grid;
+  grid-template-columns: 116px minmax(0, 1fr) 132px 124px 168px 128px;
+  align-items: baseline;
+  gap: 20px;
+  padding: 12px 4px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.sub:hover { background: var(--tint); }
+.sub-when { font-size: 11px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); }
+.sub-when-soon { color: var(--cobalt); }
+.sub-name { display: flex; align-items: baseline; gap: 2px; min-width: 0;
+             font-size: 15px; font-weight: 600; color: var(--ink); }
+.sub-name-text { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sub-name .loop-merged { flex: 0 0 auto; font-weight: 500; }
+.sub-meta { font-size: 13px; color: var(--faint); text-align: right; }
+.sub-amount { display: flex; flex-direction: column; align-items: flex-end; gap: 2px;
+              font-size: 15px; font-weight: 600; color: var(--ink); font-variant-numeric: tabular-nums; }
+.sub-cadence { font-size: 12px; font-weight: 400; color: var(--faint); }
+/* The monthly equivalent of a weekly or yearly charge. Cobalt because it is the
+   fact the email was not telling you. */
+.sub-equiv { font-size: 12px; font-weight: 500; color: var(--cobalt); }
+.sub-unpriced { font-size: 13px; font-weight: 400; color: var(--faint); }
+.sub-actions { display: flex; align-items: baseline; justify-content: flex-end; gap: 14px; }
+.sub-manage { display: flex; justify-content: flex-end; font-size: 13px; }
+.sub-manage a { color: var(--cobalt); text-decoration: none; font-weight: 500; }
+
+/* "Keeping" is the quieter of the two, mirroring Dismiss on a loop card: it is
+   the answer you give most often, and it must never be the one you hit by
+   muscle memory when you meant to say the money stops. */
+.sub-tag {
+  padding: 1px 7px; border-radius: 999px; background: var(--line-soft);
+  color: var(--muted); font-size: 11px; font-weight: 500; letter-spacing: 0.02em;
+}
+/* Dim the row's own content, not the whole row: a cancelled subscription that
+   billed you anyway is the loudest thing on this page, and it was inheriting
+   the strikethrough's 50% and reading as the faintest. */
+.sub-struck .sub-when,
+.sub-struck .sub-name,
+.sub-struck .sub-meta,
+.sub-struck .sub-amount,
+.sub-struck .sub-actions { opacity: 0.5; }
+.sub-struck .sub-name-text { text-decoration: line-through; }
+
+.sub-cancelled { padding-top: 18px; }
+.sub-cancelled-toggle {
+  background: none; border: none; padding: 0; cursor: pointer; font-family: inherit;
+  font-size: 13px; color: var(--muted);
+}
+.sub-cancelled-toggle:hover { color: var(--ink); }
+.sub-paused { opacity: 0.55; }
+.sub-paused .sub-name { font-weight: 500; }
+
+@media (max-width: 860px) {
+  .sub { grid-template-columns: 104px minmax(0, 1fr) 116px; }
+  .sub-meta, .sub-manage { display: none; }
+  .sub-actions { grid-column: 2 / -1; justify-content: flex-start; }
+}
+
+/* A note under a row: a proposal to confirm, or a contradiction to look at.
+   Spans the full grid so the quote has room to be read. */
+.sub-note {
+  grid-column: 2 / -1;
+  display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px;
+  margin-top: 8px; padding: 8px 12px; border-radius: 3px; font-size: 13px;
+}
+.sub-note-ask { background: var(--tint); color: var(--body); }
+.sub-note-warn { background: #fdf6ec; color: #6b4f22; }
+.sub-note-quote { font-style: italic; color: var(--muted); }
+.sub-note-src { color: var(--cobalt); text-decoration: none; font-size: 12px; }
+.sub-note-act {
+  margin-left: auto; background: none; border: 1px solid var(--cobalt-soft); border-radius: 3px;
+  padding: 4px 11px; cursor: pointer; font-family: inherit; font-size: 12px;
+  font-weight: 600; color: var(--cobalt);
+}
+.sub-note-act:hover:not(:disabled) { background: #fff; }
+.sub-note-act:disabled { opacity: 0.4; cursor: default; }

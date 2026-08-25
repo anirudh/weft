@@ -2,9 +2,10 @@ import type { FastifyInstance } from 'fastify';
 import type { Bucket, HorizonPayload, Obligation, TemporalClass } from '@weft/shared';
 import { desc, eq, sql } from 'drizzle-orm';
 import { db, schema } from '../db/index.js';
-import { bucket, score, whenLabel } from '../pipeline/rank.js';
+import { bucket, daysUntil, score, whenLabel } from '../pipeline/rank.js';
 import { dedupe } from '../pipeline/dedupe.js';
 import { composeEdition } from '../pipeline/compose.js';
+import { renewalIsDistant, serviceKey } from '../pipeline/recurring.js';
 
 const WEEK_DAYS = 7;
 
@@ -34,6 +35,8 @@ export async function horizonRoutes(app: FastifyInstance) {
         title: schema.obligations.title,
         detail: schema.obligations.detail,
         confidence: schema.obligations.confidence,
+        service: schema.obligations.service,
+        cadence: schema.obligations.cadence,
         completedAt: schema.obligations.completedAt,
         dismissedAt: schema.obligations.dismissedAt,
         sourceMessageId: schema.obligations.sourceMessageId,
@@ -63,6 +66,7 @@ export async function horizonRoutes(app: FastifyInstance) {
         confidence: o.confidence,
         completedAt: o.completedAt ? new Date(o.completedAt).toISOString() : null,
         dismissedAt: o.dismissedAt ? new Date(o.dismissedAt).toISOString() : null,
+        service: o.service,
         score: score(r, now),
         bucket: bucket(r, now) as Bucket,
         whenLabel: whenLabel(r, now),
@@ -83,8 +87,35 @@ export async function horizonRoutes(app: FastifyInstance) {
     // you turn up to it, and This Week already draws them against the days they
     // fall on. Listing them here as well made a task list that was 38% calendar.
     const isEvent = (o: Obligation) => o.temporalClass === 'event';
-    const yours = open.filter((o) => o.court === 'yours' && !isEvent(o)).sort(byScore).slice(0, 12);
-    const theirs = open.filter((o) => o.court === 'theirs' && !isEvent(o)).sort(byScore).slice(0, 12);
+
+    // Recurring charges have their own lens, which knows the price, the real
+    // next date and where to cancel — everything this card cannot say. Seven of
+    // twelve items here were renewals, so the front page was mostly a billing
+    // statement.
+    //
+    // The imminent ones stay. "Cancel before Thursday" is a decision with a
+    // deadline, which is exactly what this list is for; a domain renewing in
+    // eleven months is not, and belongs in the ledger.
+    const SOON_DAYS = 7;
+
+    // A service you have already decided about is not a decision. Both states
+    // silence the card and for the same reason: there is nothing left to ask.
+    // Keeping it costs money, which the lens goes on reporting — but the front
+    // page is for things that still need you.
+    const settledServices = new Set(
+      (await db.select({ k: schema.subscriptionState.serviceKey }).from(schema.subscriptionState)).map((r) => r.k),
+    );
+
+    const cadenceOf = new Map(raw.map((r) => [r.id, r.cadence]));
+    const isDistantRenewal = (o: Obligation) => {
+      if (!o.service) return false;
+      if (settledServices.has(serviceKey(o.service))) return true;
+      return renewalIsDistant(o.anchorDate, cadenceOf.get(o.id) ?? '', now, SOON_DAYS);
+    };
+    const onFrontPage = (o: Obligation) => !isEvent(o) && !isDistantRenewal(o);
+
+    const yours = open.filter((o) => o.court === 'yours' && onFrontPage(o)).sort(byScore).slice(0, 12);
+    const theirs = open.filter((o) => o.court === 'theirs' && onFrontPage(o)).sort(byScore).slice(0, 12);
 
     // Anything cleared in the last day stays on screen so Undo is reachable —
     // a mis-click must never silently bury something real. After that it goes,

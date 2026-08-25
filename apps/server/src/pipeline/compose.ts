@@ -62,9 +62,9 @@ const EXAMPLE = `<example>
 <input>Today is Monday 24 August.
 YOUR COURT
 - [By tomorrow] Confirm attendance for the Brightpath trial class — class is tomorrow at 16:00
-- [Closes tomorrow] Cancel Notewell Premium trial before renewal — $7.99/week
-- [Closes in 3 days] Manage Lightbox subscription before auto-renewal — $7.71 on 27 August
-- [In 14 days] Cancel Atlas AI Pro subscription before renewal — $110.29/month on 7 September
+- [Closes tomorrow] Cancel Notewell Premium trial before renewal — $6.49/week
+- [Closes in 3 days] Manage Lightbox subscription before auto-renewal — $9.25 on 27 August
+- [In 14 days] Cancel Atlas AI Pro subscription before renewal — $89.00/month on 7 September
 THEIR COURT
 - [Worth chasing] Hear back on the Wildwood waitlist request — no answer in 10 days
 THIS WEEK: Tue: 1 · Wed: 1 · Thu: 3 · Fri-Sun: nothing</input>

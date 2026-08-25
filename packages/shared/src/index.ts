@@ -37,6 +37,12 @@ export const ExtractedObligation = z.object({
   title: z.string(),
   detail: z.string(),
   confidence: z.number().min(0).max(1),
+  /** Set only for recurring commitments. The subscriptions lens is defined by
+   *  these being populated rather than by matching words in the title. */
+  service: z.string().default(''),
+  amount: z.string().default(''),      // as written, e.g. "110.29"
+  currency: z.string().default(''),    // ISO-ish, e.g. "USD"
+  cadence: z.string().default(''),     // monthly | weekly | yearly | quarterly | one_off
 });
 export type ExtractedObligation = z.infer<typeof ExtractedObligation>;
 
@@ -68,6 +74,10 @@ export const Obligation = z.object({
   completedAt: z.string().nullable(),
   /** Set when the reader said this will not happen — cleared, but not done. */
   dismissedAt: z.string().nullable(),
+  /** Non-empty when this is a recurring charge, which means the subscriptions
+   *  lens also holds it — Horizon uses this to keep distant renewals off the
+   *  front page without needing to guess from the title. */
+  service: z.string().default(''),
   // computed server-side by pipeline/rank.ts
   score: z.number(),
   bucket: Bucket,
@@ -120,6 +130,84 @@ export const AccountStatus = z.object({
   needsReconnect: z.boolean(),
 });
 export type AccountStatus = z.infer<typeof AccountStatus>;
+
+/**
+ * What the reader has decided about a recurring charge.
+ *
+ * `kept` and `cancelled` are not two flavours of the same act. Kept means the
+ * money continues, so the row stays in the monthly total at full price and only
+ * stops asking to be decided. Cancelled means the money stops, so it leaves the
+ * total. One button for both would understate what you spend.
+ */
+export const SubscriptionState = z.enum(['active', 'kept', 'cancelled']);
+export type SubscriptionState = z.infer<typeof SubscriptionState>;
+
+/** One recurring commitment, as the subscriptions lens sees it. */
+export const Subscription = z.object({
+  /** Stable key for the service, so several emails collapse to one row. */
+  key: z.string(),
+  name: z.string(),
+  accountEmail: z.string(),
+  threadId: z.string(),
+  /** Next renewal, or null when nothing has stated one. */
+  nextDate: z.string().nullable(),
+  daysUntil: z.number().nullable(),
+  whenLabel: z.string(),
+  /** True when nextDate was rolled forward from a past date by the cadence
+   *  rather than stated in an email. The row is still real; the date is a
+   *  projection, and the view must not present it as quoted fact. */
+  estimated: z.boolean(),
+  amountCents: z.number().nullable(),
+  currency: z.string(),
+  cadence: z.string(),
+  /** What one month of this costs, so cadences can be added together. */
+  monthlyCents: z.number(),
+  /** Where cancelling actually happens, when it can be known. */
+  manageUrl: z.string().nullable(),
+  manageLabel: z.string().nullable(),
+  paused: z.boolean(),
+  state: SubscriptionState.default('active'),
+  /** An email that appears to confirm this was cancelled. A PROPOSAL only —
+   *  Weft cannot see your account, and a wrong guess would drop a live charge
+   *  out of the total silently. The quote is what makes confirming it a
+   *  decision rather than an act of faith. */
+  proposedCancelled: z
+    .object({ quote: z.string(), threadId: z.string(), accountEmail: z.string(), receivedAt: z.string() })
+    .nullable()
+    .default(null),
+  /** A renewal notice that arrived AFTER you marked this cancelled. Weft cannot
+   *  read your bank, but it can notice the contradiction. */
+  chargedAfterCancel: z
+    .object({ title: z.string(), threadId: z.string(), accountEmail: z.string(), receivedAt: z.string() })
+    .nullable()
+    .default(null),
+  /** When the reader decided, so a decision can be shown as recent. */
+  decidedAt: z.string().nullable().default(null),
+  /** How many obligations collapsed into this row. */
+  mergedCount: z.number(),
+});
+export type Subscription = z.infer<typeof Subscription>;
+
+export const SubscriptionsLens = z.object({
+  /** Sum of monthlyCents across everything active with a known price. */
+  monthlyTotalCents: z.number(),
+  currency: z.string(),
+  /** Everything still costing money: untouched plus explicitly kept. */
+  activeCount: z.number(),
+  /** Active but with no price stated — excluded from the total, not hidden. */
+  unpricedCount: z.number(),
+  pausedCount: z.number(),
+  /** How many of the active rows the reader has explicitly decided to keep. */
+  keptCount: z.number(),
+  /** Marked cancelled: out of the total, collapsed rather than deleted, so the
+   *  decision stays reversible and a later charge can be spotted as a
+   *  contradiction. */
+  cancelled: z.array(Subscription),
+  /** The largest single monthly cost, which is usually the whole story. */
+  largest: Subscription.nullable(),
+  subscriptions: z.array(Subscription),
+});
+export type SubscriptionsLens = z.infer<typeof SubscriptionsLens>;
 
 /** Everything the Horizon page needs, in one response. */
 export const HorizonPayload = z.object({

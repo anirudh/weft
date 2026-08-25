@@ -6,7 +6,7 @@ const ob = (o: Partial<Obligation>): Obligation => ({
   id: 1, accountEmail: 'a@b.com', threadId: 't', sourceMessageId: 'm', court: 'yours',
   temporalClass: 'deadline', anchorDate: '2026-08-27', anchorIsExplicit: true, anchorQuote: '',
   anchorValidated: true, title: 'Pay the Riverside Club statement balance', detail: '$312.50',
-  confidence: 0.9, completedAt: null, dismissedAt: null, score: 0.85, bucket: 'this_week',
+  confidence: 0.9, completedAt: null, dismissedAt: null, service: '', score: 0.85, bucket: 'this_week',
   whenLabel: 'By Thursday', mergedCount: 1, ...o,
 });
 const base = { cursors: ['1000001', '2000002'], date: 'Monday 24 August' };

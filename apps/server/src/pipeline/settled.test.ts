@@ -39,15 +39,15 @@ describe('alreadySettled', () => {
     // Both read as "money leaves automatically". Only one can be prevented.
     // This one is a real row from a real mailbox and it must survive.
     expect(alreadySettled({
-      title: 'Manage upcoming Massage Envy membership payment',
+      title: 'Manage upcoming Rivergate Spa membership payment',
       detail: 'Membership coming off freeze; payment automatically deducts on 15 September',
       source: 'Your membership is coming off freeze. Your monthly payment will be automatically deducted from your account on 15 September 2026. To cancel or change your plan, visit your account.',
     })).toBe(false);
 
     expect(alreadySettled({
-      title: 'Pay for the Apple TV subscription',
-      detail: '$14.32 charged monthly',
-      source: 'Your Apple TV subscription will be automatically charged to your payment method on 4 September 2026 for $14.32. Cancel any time in Settings.',
+      title: 'Pay for the Northwind TV subscription',
+      detail: '$11.49 charged monthly',
+      source: 'Your Northwind TV subscription will be automatically charged to your payment method on 9 September 2026 for $11.49. Cancel any time in Settings.',
     })).toBe(false);
   });
 

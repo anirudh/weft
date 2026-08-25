@@ -9,6 +9,7 @@ import { accountRoutes } from './routes/accounts.js';
 import { syncRoutes } from './routes/sync.js';
 import { pipelineRoutes } from './routes/pipeline.js';
 import { obligationRoutes } from './routes/obligations.js';
+import { subscriptionRoutes } from './routes/subscriptions.js';
 
 const app = Fastify({ logger: { transport: { target: 'pino-pretty' } } });
 
@@ -21,6 +22,7 @@ await app.register(syncRoutes);
 await app.register(pipelineRoutes);
 await app.register(horizonRoutes);
 await app.register(obligationRoutes);
+await app.register(subscriptionRoutes);
 
 // In dev, Vite serves the UI and proxies /api here. In production the built
 // assets are served by this same process, so Weft is one command and one port.

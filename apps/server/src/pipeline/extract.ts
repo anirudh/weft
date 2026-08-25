@@ -6,6 +6,7 @@ import { env } from '../env.js';
 import { generateJson, type ThinkingLevel } from '../vertex/client.js';
 import { validateAnchor } from './anchor.js';
 import { alreadySettled } from './settled.js';
+import { resolveRecurring } from './recurring.js';
 
 const MAX_MESSAGES = 20;
 const MAX_CHARS = 12_000;
@@ -26,8 +27,12 @@ export const SCHEMA = {
           title: { type: 'STRING', description: "Short imperative from the reader's point of view." },
           detail: { type: 'STRING' },
           confidence: { type: 'NUMBER' },
+          service: { type: 'STRING', description: 'For a recurring charge only: the bare name of the thing being paid for, e.g. "Lightbox". Empty otherwise.' },
+          amount: { type: 'STRING', description: 'Digits only, e.g. "110.29". Empty if no price is stated.' },
+          currency: { type: 'STRING', description: 'USD, GBP, EUR, INR. Empty if no price is stated.' },
+          cadence: { type: 'STRING', enum: ['none', 'monthly', 'weekly', 'yearly', 'quarterly', 'one_off'], description: 'How often it recurs. Use "none" when this is not a recurring charge.' },
         },
-        required: ['court', 'temporalClass', 'anchorDate', 'anchorIsExplicit', 'anchorQuote', 'title', 'detail', 'confidence'],
+        required: ['court', 'temporalClass', 'anchorDate', 'anchorIsExplicit', 'anchorQuote', 'title', 'detail', 'confidence', 'service', 'amount', 'currency', 'cadence'],
       },
     },
   },
@@ -162,6 +167,14 @@ Rules:
   date, set anchorDate to "" and anchorIsExplicit to false. Do not infer a date from
   urgency.
 - Titles are short and imperative, written from the reader's point of view.
+- For a recurring charge — a subscription, membership, plan or domain — also fill
+  service, amount, currency and cadence. These are a structured copy of what you
+  would put in detail anyway: service is the bare name ("Lightbox", not "Decide on
+  Lightbox subscription"), amount is digits only, cadence is how often it recurs.
+  Leave service, amount and currency empty and set cadence to "none" for anything
+  that is not a recurring charge. Never infer a
+  price that is not stated — an empty amount is correct and useful, because the
+  renewal date still matters.
 - One obligation per distinct action. Do not restate the same action twice.
 - A single email often carries several separate obligations. A welcome pack can name
   a fee to pay, a form that reduces that fee, a second form needed only in some
@@ -184,38 +197,38 @@ eligible device for up to $400 back.</thread>
 <output>{"obligations":[]}</output>
 </example>
 <example>
-<thread>From: The Atlantic <accounts@noreply.theatlantic.com>
+<thread>From: The Meridian <accounts@noreply.themeridian.com>
 Subject: Your trial ends soon. Here's how to keep reading.
 Keep reading. Keep thinking. Keep growing. We hope you have been enjoying your trial,
-which will end on 08/27/2026. There is still time to explore everything The Atlantic
-has to offer, including unlimited access to every Atlantic story, the app, narrated
+which will end on 08/27/2026. There is still time to explore everything The Meridian
+has to offer, including unlimited access to every Meridian story, the app, narrated
 articles, daily games and a 169-year archive.</thread>
-<output>{"obligations":[{"court":"yours","temporalClass":"window","anchorDate":"2026-08-27","anchorIsExplicit":true,"anchorQuote":"end on 08/27/2026","title":"Decide on The Atlantic before the trial converts","detail":"Trial ends 27 August; no price stated in the email","confidence":0.8}]}</output>
+<output>{"obligations":[{"court":"yours","temporalClass":"window","anchorDate":"2026-08-27","anchorIsExplicit":true,"anchorQuote":"end on 08/27/2026","title":"Decide on The Meridian before the trial converts","detail":"Trial ends 27 August; no price stated in the email","confidence":0.8,"service":"The Meridian","amount":"","currency":"","cadence":"yearly"}]}</output>
 </example>
 <example>
 <thread>From: Larkspur Elementary <office@larkspur.org>
 Subject: Fall permission packet
 Please sign and return the field trip form by Friday August 29.</thread>
-<output>{"obligations":[{"court":"yours","temporalClass":"deadline","anchorDate":"2026-08-29","anchorIsExplicit":true,"anchorQuote":"Friday August 29","title":"Sign and return the field trip form","detail":"Larkspur Elementary fall permission packet","confidence":0.95}]}</output>
+<output>{"obligations":[{"court":"yours","temporalClass":"deadline","anchorDate":"2026-08-29","anchorIsExplicit":true,"anchorQuote":"Friday August 29","title":"Sign and return the field trip form","detail":"Larkspur Elementary fall permission packet","confidence":0.95,"service":"","amount":"","currency":"","cadence":"none"}]}</output>
 </example>
 <example>
 <thread>From: Dana Whitlock <dana@northgate.co>
 Subject: Re: pricing tiers
 Circling back on this. We need to decide before the board meets.</thread>
-<output>{"obligations":[{"court":"yours","temporalClass":"deadline","anchorDate":"","anchorIsExplicit":false,"anchorQuote":"","title":"Reply to Dana about the pricing tiers","detail":"Second ask; no date stated","confidence":0.8}]}</output>
+<output>{"obligations":[{"court":"yours","temporalClass":"deadline","anchorDate":"","anchorIsExplicit":false,"anchorQuote":"","title":"Reply to Dana about the pricing tiers","detail":"Second ask; no date stated","confidence":0.8,"service":"","amount":"","currency":"","cadence":"none"}]}</output>
 </example>
 <example>
 <thread>From: Harbour Swim Academy <bookings@harbourswim.com>
 Subject: Lesson confirmed
 Maya's swim lesson is confirmed for Thursday 27 August at 4:30pm with Coach Mel.</thread>
-<output>{"obligations":[{"court":"yours","temporalClass":"event","anchorDate":"2026-08-27","anchorIsExplicit":true,"anchorQuote":"Thursday 27 August","title":"Maya's swim lesson at Harbour Swim Academy","detail":"4:30pm with Coach Mel","confidence":0.95}]}</output>
+<output>{"obligations":[{"court":"yours","temporalClass":"event","anchorDate":"2026-08-27","anchorIsExplicit":true,"anchorQuote":"Thursday 27 August","title":"Maya's swim lesson at Harbour Swim Academy","detail":"4:30pm with Coach Mel","confidence":0.95,"service":"","amount":"","currency":"","cadence":"none"}]}</output>
 </example>
 <example>
 <thread>From: Wildwood Camps <camps@wildwoodcamps.com>
 Subject: How did we do? Camp evaluation for Maya
 Please take a few minutes to complete the evaluation for Maya's session. Your
 feedback shapes next summer's programme.</thread>
-<output>{"obligations":[{"court":"yours","temporalClass":"deadline","anchorDate":"","anchorIsExplicit":false,"anchorQuote":"","title":"Complete the Wildwood camp evaluation for Maya","detail":"No date stated","confidence":0.8}]}</output>
+<output>{"obligations":[{"court":"yours","temporalClass":"deadline","anchorDate":"","anchorIsExplicit":false,"anchorQuote":"","title":"Complete the Wildwood camp evaluation for Maya","detail":"No date stated","confidence":0.8,"service":"","amount":"","currency":"","cadence":"none"}]}</output>
 </example>
 <example>
 <thread>From: Sub Club <hello@subclub.com>
@@ -239,13 +252,13 @@ Hi — could you let me know whether a spot opened up on the waitlist for Maya?
 From: Wildwood Family Team <family@wildwoodcamps.com>
 Date: 2026-08-14
 Thanks, we have logged this as ticket #482100 and will reach out if a space becomes available.</thread>
-<output>{"obligations":[{"court":"theirs","temporalClass":"waiting_on","anchorDate":"2026-08-14","anchorIsExplicit":true,"anchorQuote":"2026-08-14","title":"Hear back on the Wildwood waitlist for Maya","detail":"Ticket #482100; no answer since 14 August","confidence":0.85}]}</output>
+<output>{"obligations":[{"court":"theirs","temporalClass":"waiting_on","anchorDate":"2026-08-14","anchorIsExplicit":true,"anchorQuote":"2026-08-14","title":"Hear back on the Wildwood waitlist for Maya","detail":"Ticket #482100; no answer since 14 August","confidence":0.85,"service":"","amount":"","currency":"","cadence":"none"}]}</output>
 </example>
 <example>
 <thread>From: Riverside Club <billing@riversideclub.com>
 Subject: Your August statement
 Your August statement reflects a balance of $312.50, due 31 August 2026.</thread>
-<output>{"obligations":[{"court":"yours","temporalClass":"deadline","anchorDate":"2026-08-31","anchorIsExplicit":true,"anchorQuote":"due 31 August 2026","title":"Pay the Riverside Club statement balance","detail":"$312.50 due 31 August","confidence":0.95}]}</output>
+<output>{"obligations":[{"court":"yours","temporalClass":"deadline","anchorDate":"2026-08-31","anchorIsExplicit":true,"anchorQuote":"due 31 August 2026","title":"Pay the Riverside Club statement balance","detail":"$312.50 due 31 August","confidence":0.95,"service":"","amount":"","currency":"","cadence":"none"}]}</output>
 </example>
 </examples>`;
 
@@ -273,9 +286,11 @@ export type ExtractProgress = {
   done: number; total: number; obligations: number; capped: number;
   /** Dropped because the source said they were already taken care of. */
   settled: number;
+  /** How many carried a service and cadence — the subscriptions lens. */
+  recurring: number;
   tokensIn: number; tokensOut: number; failures: number; error?: string;
 };
-let progress: ExtractProgress = { state: 'idle', done: 0, total: 0, obligations: 0, capped: 0, settled: 0, tokensIn: 0, tokensOut: 0, failures: 0 };
+let progress: ExtractProgress = { state: 'idle', done: 0, total: 0, obligations: 0, capped: 0, settled: 0, recurring: 0, tokensIn: 0, tokensOut: 0, failures: 0 };
 export const getExtractProgress = () => progress;
 
 /** Head-and-tail truncation: the request is usually at the start, the current state at the end. */
@@ -317,7 +332,7 @@ export async function runExtraction(limit?: number): Promise<ExtractProgress> {
     (await db.select().from(schema.accounts)).map((a) => [a.id, a.email]),
   );
 
-  progress = { state: 'running', done: 0, total: pending.length, obligations: 0, capped: 0, settled: 0, tokensIn: 0, tokensOut: 0, failures: 0 };
+  progress = { state: 'running', done: 0, total: pending.length, obligations: 0, capped: 0, settled: 0, recurring: 0, tokensIn: 0, tokensOut: 0, failures: 0 };
   const today = new Date().toISOString().slice(0, 10);
 
   try {
@@ -372,6 +387,11 @@ export async function runExtraction(limit?: number): Promise<ExtractProgress> {
             continue;
           }
           const anchor = validateAnchor({ anchorDate: o.anchorDate, anchorIsExplicit: o.anchorIsExplicit, anchorQuote: o.anchorQuote });
+          const recurring = resolveRecurring({
+            service: o.service, amount: o.amount, currency: o.currency, cadence: o.cadence,
+            title: o.title, detail: o.detail,
+          });
+          if (recurring.service) progress.recurring++;
           await db.insert(schema.obligations).values({
             accountId: t.accountId,
             threadId: t.id,
@@ -385,6 +405,10 @@ export async function runExtraction(limit?: number): Promise<ExtractProgress> {
             title: o.title,
             detail: o.detail,
             confidence: o.confidence,
+            service: recurring.service,
+            amountCents: recurring.amountCents,
+            currency: recurring.currency,
+            cadence: recurring.cadence,
             createdAt: now,
             updatedAt: now,
           });
