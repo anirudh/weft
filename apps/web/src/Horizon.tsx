@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { HorizonPayload } from '@weft/shared';
+import type { HorizonPayload, Obligation } from '@weft/shared';
 import { clearObligation, fetchHorizon } from './api.js';
 import { Accounts } from './components/Accounts.js';
 import { MailTable } from './components/MailTable.js';
@@ -18,11 +18,37 @@ export function Horizon() {
     fetchHorizon().then(setData).catch((e: unknown) => setError(String(e)));
   }, []);
 
-  // Refetch rather than patch in place: clearing a loop changes the ranking,
-  // This Week and the mail order too, and the server is the only thing that
-  // knows how. The one card is disabled meanwhile so a double click cannot
-  // complete and then immediately reopen.
+  /**
+   * Strike the card out immediately, then let the server reorder.
+   *
+   * Clearing a loop changes the ranking, This Week and the mail order, and only
+   * the server knows how — but waiting for it to say so made the button feel
+   * broken. So the visual state is optimistic and the ordering is authoritative:
+   * the strikethrough happens on click, the row moves when the payload returns.
+   * If the request fails the refetch puts it back.
+   */
   const onClear = (id: number, how: 'complete' | 'dismiss' | 'reopen') => {
+    const now = new Date().toISOString();
+    const patch = (o: Obligation): Obligation =>
+      o.id !== id
+        ? o
+        : {
+            ...o,
+            completedAt: how === 'complete' ? now : null,
+            dismissedAt: how === 'dismiss' ? now : null,
+          };
+    setData((d) =>
+      d && {
+        ...d,
+        openLoops: {
+          yours: d.openLoops.yours.map(patch),
+          theirs: d.openLoops.theirs.map(patch),
+          completed: d.openLoops.completed.map(patch),
+          dismissed: d.openLoops.dismissed.map(patch),
+        },
+      },
+    );
+
     setBusy(id);
     clearObligation(id, how)
       .then(fetchHorizon)
@@ -57,7 +83,10 @@ export function Horizon() {
         <Accounts accounts={data.accounts} />
 
         <section className="section">
-          <span className="section-label">State</span>
+          <div className="section-head">
+            <span className="section-label">State</span>
+            {data.edition?.stale && <span className="section-note">rewriting…</span>}
+          </div>
           {data.edition ? (
             <>
               <h2 className="headline">{data.edition.headline}</h2>

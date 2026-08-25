@@ -105,6 +105,9 @@ export const Edition = z.object({
   composedAt: z.string(),
   headline: z.string(),
   notes: z.array(z.string()),
+  /** True when this brief predates the current open set and a new one is being
+   *  written in the background. The page shows it rather than nothing. */
+  stale: z.boolean().default(false),
 });
 export type Edition = z.infer<typeof Edition>;
 

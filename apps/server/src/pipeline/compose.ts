@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { eq } from 'drizzle-orm';
+import { desc, eq } from 'drizzle-orm';
 import type { Edition, Obligation, WeekDay } from '@weft/shared';
 import { db, schema } from '../db/index.js';
 import { env } from '../env.js';
@@ -105,10 +105,25 @@ export type ComposeInput = {
   week: WeekDay[];
 };
 
+const row2edition = (r: { composedAt: number; headline: string; notes: string }, stale: boolean): Edition => ({
+  composedAt: new Date(r.composedAt).toISOString(),
+  headline: r.headline,
+  notes: JSON.parse(r.notes) as string[],
+  stale,
+});
+
+/** Hashes currently being composed, so N requests do not start N model calls. */
+const inFlight = new Set<string>();
+
 /**
- * Returns the cached edition when the inputs are unchanged, otherwise composes
- * one. Never throws: a brief that cannot be written must not take the page down
- * with it, because everything below it is already correct without one.
+ * Returns the cached edition when the inputs are unchanged. On a miss it returns
+ * the PREVIOUS edition marked stale and writes the new one in the background.
+ *
+ * This never blocks, and that is the whole point. Composition is a 3.7-flash
+ * call that takes about eight seconds. It used to run inside GET /api/horizon,
+ * so completing a task — which changes the open set, which changes this hash —
+ * made the button appear frozen for eight seconds while an AI wrote a paragraph
+ * nobody was waiting for. Measured: the write itself is 2ms.
  */
 export async function composeEdition(input: ComposeInput): Promise<Edition | null> {
   const loops = [...input.yours, ...input.theirs];
@@ -117,14 +132,24 @@ export async function composeEdition(input: ComposeInput): Promise<Edition | nul
   const hash = inputHash({ cursors: input.cursors, loops, date: input.date });
 
   const [cached] = await db.select().from(schema.editions).where(eq(schema.editions.inputHash, hash));
-  if (cached) {
-    return {
-      composedAt: new Date(cached.composedAt).toISOString(),
-      headline: cached.headline,
-      notes: JSON.parse(cached.notes) as string[],
-    };
+  if (cached) return row2edition(cached, false);
+
+  if (!inFlight.has(hash)) {
+    inFlight.add(hash);
+    void composeNow(input, hash).finally(() => inFlight.delete(hash));
   }
 
+  const [latest] = await db
+    .select()
+    .from(schema.editions)
+    .orderBy(desc(schema.editions.composedAt))
+    .limit(1);
+  return latest ? row2edition(latest, true) : null;
+}
+
+/** The actual model call. Never throws: a brief that cannot be written must not
+ *  take the page down with it, because everything below it is already correct. */
+async function composeNow(input: ComposeInput, hash: string): Promise<void> {
   try {
     const { data } = await generateJson<{ headline: string; notes: string[] }>({
       model: env.GEMINI_COMPOSE_MODEL,
@@ -136,16 +161,13 @@ export async function composeEdition(input: ComposeInput): Promise<Edition | nul
 
     const headline = String(data?.headline ?? '').trim();
     const notes = (Array.isArray(data?.notes) ? data.notes : []).map((n) => String(n).trim()).filter(Boolean);
-    if (!headline) return null;
+    if (!headline) return;
 
-    const composedAt = Date.now();
     await db
       .insert(schema.editions)
-      .values({ inputHash: hash, composedAt, headline, notes: JSON.stringify(notes) })
+      .values({ inputHash: hash, composedAt: Date.now(), headline, notes: JSON.stringify(notes) })
       .onConflictDoNothing();
-
-    return { composedAt: new Date(composedAt).toISOString(), headline, notes };
   } catch {
-    return null;
+    // Swallowed on purpose: the next request will try again.
   }
 }
