@@ -1,0 +1,21 @@
+{
+  "id": "org-statement-due",
+  "note": "Balance owed with a due date and no auto-pay — the mirror of auto-pay-enabled-statement.",
+  "today": "2026-08-04",
+  "subject": "Your Riverside Club Statement is Now Available - 48-9182743",
+  "messages": [
+    {
+      "fromName": "Riverside Club",
+      "fromEmail": "noreply@rooksby.example",
+      "subject": "Your Riverside Club Statement is Now Available - 48-9182743",
+      "date": "2026-08-03",
+      "isSent": false,
+      "body": "Dear Julian&#44; Ready to squeeze the most out of your summer&#63; Join us for some fun and sun at the Club&#46; It&#39;s the best time to try a new fitness class&#44; catch up with the latest on the court&#44; and take advantage of everything the season has to offer&#46; Your attached August statement reflects a balance of $382.15&#46; Your payment of $382.15 is due on 08/31/2026. Your account will be assessed a late fee if payment is not received by the payment due date. To manage your billing preferences please login to Connect &#46; If you &#39; re enrolled in automatic payments&#44; we will draft your balance on August 16th&#46; If you &#39; d like to set up automatic payments &#44; simply add a method in Connect under Billing&#46; If you have any questions&#44; please message our Member Service Team via Connect (select Contact Us) or email memberhelp@tarnbrook.example &#46; We &#39; re always happy to help&#46; We appreciate you playing an active role in our community&#44; and look forward to seeing you at the Club&#46; In health&#44; Riverside Club Member Service Team The Riverside Club Company. 500 Howard Street, Suite 400, San Francisco, CA 94105."
+    }
+  ],
+  "expect": {
+    "obligations": "some",
+    "court": "yours",
+    "temporalClass": "deadline"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "broadcast-alumni-webinar",
+  "note": "Alumni broadcast. Genuinely arguable, which is exactly why it is pinned.",
+  "today": "2026-08-12",
+  "subject": "Are you ready to navigate your key staffing milestones?",
+  "messages": [
+    {
+      "fromName": "Oakridge University Alumni Network",
+      "fromEmail": "alumnievents@larkspur.example",
+      "subject": "Are you ready to navigate your key staffing milestones?",
+      "date": "2026-08-11",
+      "isSent": false,
+      "body": "https://click.connect.oakridge.edu/events/staffing-milestones \n\n \n \n\n Devante,\n\n\nJoin the Alumni Network for an insightful session designed to provide founders and operators with a practical framework for what happens when you hit the key staffing milestones of 15, 50 and 100 employees.\n\n\nYou will discover which laws apply, which states have strict legislation to watch and what your HR infrastructure should look like to support company growth. Drawing on years of operational leadership, our featured speakers will share real-world experiences navigating these exact kind of moments.\n\n From Startup to Scale-Up: The Headcount Thresholds That Will Change Your Company\n\nWednesday, September 2\n\nNoon ET\nZoom Webinar\n\n\nhttps://click.connect.oakridge.edu/events/register \nRegister Now \n\n\nFeaturing\n\nJulian Mercer (SOM 2010) \n\nFounder and Managing Partner, Vanguard People Advisory\n\n\nMarcus Vance \n\nAdjunct Professor, School of Management\n\n\n\nhttps://click.connect.oakridge.edu/events/register \nRegister by Sept. 1.  If you have questions, contact \nmailto:events@belmont.example \nevents@belmont.example .\n\n\n \n \n\n  \n<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" style=\"background:#fff;\">\n  <!-- SALESFORCE MARKETING CLOUD IMAGE -->\n  <tr>\n    <td bgcolor=\"#FFFFFF\">&nbsp;</td>\n  </tr>\n  <!-- FOOTER CONTENT -->\n  <tr>\n    <td align=\"center\" valign=\"top\" style=\"background:#fff;\" width=\"100%\">\n      <table class=\"container\" cellpadding=\"0\" cellspacing=\"0\" width=\"600\">\n        <tr>\n          <td align=\"center\" style=\"font-family: Verdana, Helvetica, Arial, sans-serif; font-size: 11px; color: #959595; padding:0px 0px 25px 0px;\"> This email was sent by: <br>\n            <span>\n              <b>Oakridge University</b>\n              <br> 742 Evergreen Terrace, Springfield, OR, 97477 US </span>\n            <br>\n            <br>\n            <a href=\"https://click.connect.oakridge.edu/preferences\" alias=\"Manage Subscriptions\" target=\"_blank\" style=\"color: #959595; text-decoration: none; font-weight:bold;\">Update your email preferences</a> to change the kinds of content you receive from Oakridge University, or <a href=\"https://click.connect.oakridge.edu/unsubscribe\" alias=\"Unsubscribe\" target=\"_blank\" style=\"color: #959595; text-decoration: none; font-weight:bold;\">unsubscribe</a>.\n          </td>\n        </tr>\n      </table>\n    </td>\n  </tr>\n</table>\n</html>"
+    }
+  ],
+  "expect": {
+    "obligations": "none"
+  }
+}

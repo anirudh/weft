@@ -1,0 +1,19 @@
+{
+  "id": "auto-package-tracking",
+  "note": "Shipping notice. Arrives whether or not the reader acts.",
+  "today": "2026-08-08",
+  "subject": "Shipped: ⁦1⁩ Hair Care item",
+  "messages": [
+    {
+      "fromName": "loxley.example",
+      "fromEmail": "shipment-tracking@westray.example",
+      "subject": "Shipped: ⁦1⁩ Hair Care item",
+      "date": "2026-08-07",
+      "isSent": false,
+      "body": "Your Orders\n\nhttps://www.loxley.example/gp/css/order-history\n\nYour Account\n\nhttps://www.loxley.example/your-account\n\nBuy Again\n\nhttps://www.loxley.example/gp/buyagain\n\nYour package has been prepared!\n\nTrack package\n\nhttps://www.loxley.example/progress-tracker/package\n\nhair-care\n\n\n    \nOrdered\n\nPacked\n\nOut for delivery\n\nDelivered\n\n\n\n\n\n\n\n\n\n\n\nArriving today by 12:20 PM\n\n\n\nLucas - AUSTIN, TX\n\nOrder #\n112-8491034-6391745\n\n\n\n\n\n\n\n\n\nTotal\n18.47 USD\n\n\nView related transactions in Your Transactions\nhttps://www.loxley.example/cpe/yourpayments/transactions\n\nA delivery driver may contact you on the day of delivery. For everyone’s safety, ensure a clear, well-lit path and secure pets before arrival.\n\n\n\n\n©2026 loxley.example, Inc. or its affiliates. Loxley and all related marks are trademarks of loxley.example, Inc. or its affiliates, loxley.example, Inc. 550 Pine Street, Seattle, WA 98101.\n\nYour invoice can be accessed [here.](https://www.loxley.example/gp/css/summary/print.html) Unless otherwise noted, items sold by Loxley are subject to sales tax in selected states or provinces in accordance with the applicable laws of that state. If your order contains one or more items from a seller other than Loxley, it may be subject to local and state or province tax, depending upon the sellers business policies and the location of their operations. For more information, go to [tax and seller information](https://www.loxley.example/gp/help/customer/display.html).\n\n\nPrivacy Notice https://www.loxley.example/gp/help/customer/display.html\n\nloxley.example"
+    }
+  ],
+  "expect": {
+    "obligations": "none"
+  }
+}

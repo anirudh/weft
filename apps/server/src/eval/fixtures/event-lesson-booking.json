@@ -1,0 +1,21 @@
+{
+  "id": "event-lesson-booking",
+  "note": "A booked lesson. Nothing goes wrong if missed, so a consequence-only rule deletes it.",
+  "today": "2026-07-30",
+  "subject": "Azure Wave Aquatic Center Appointment Reminder: Friday, 7/31/2026 at 5:00 PM",
+  "messages": [
+    {
+      "fromName": "Azure Wave Aquatic Center",
+      "fromEmail": "business891245@fairmont.example",
+      "subject": "Azure Wave Aquatic Center Appointment Reminder: Friday, 7/31/2026 at 5:00 PM",
+      "date": "2026-07-29",
+      "isSent": false,
+      "body": "https://clients.fairmont.example/studios/AZUREWAVEAQUATICS/logo.gifDear Liam,Below is your appointment information for Friday, WITH Marcus Vance, ON 7/31/2026:7/31/2026, 5:00 PM, 1:1 Private Lesson 30 Minutes (1:1 Private Lesson) - Marcus Vance, Azure Wave Aquatic Center\nPlease confirm your appointment(s) by clicking the link below.Please arrive five minutes before your appointment start time.  24 Hours Reschedule & Cancellation Policy and Makeup lesson policy If you need to reschedule or cancel your lessons, please call 206-555-8492 or email at support@cranwell.example. We require 24-hours advance notice for any changes to the private and semi-private lessons. Any notice within the 24-hour Kestrel will be considered a late cancellation, and you will be charged the full price of your lesson fee. As a courtesy to our members, we offer ONE make-up lesson with no charge for every three months period.A makeup lesson is for emergency reasons. Allowed once every 3 months. Need to book a makeup class in the next 7 days before the next regular recurring lesson and once the makeup lesson is booked you have to keep the next regular recurring lesson with the SAME instructor (depends on instructor availability).Thank you!The Azure Wave Aquatic Center TeamWeb: http://www.azurewaveaquatics.comPhone: 2065558492Address: 4520 148th Avenue Northeast Redmond WA 98052"
+    }
+  ],
+  "expect": {
+    "obligations": "some",
+    "court": "yours",
+    "temporalClass": "event"
+  }
+}

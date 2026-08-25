@@ -1,0 +1,21 @@
+{
+  "id": "waiting-on-reply",
+  "note": "The reader asked; a human owes an answer. The only shape that earns Their court.",
+  "today": "2026-08-15",
+  "subject": "Re: Wildwood Inquiry: Waitlist Request - jor9dan@southgate.example - 2894419530182 - Ticket #618429",
+  "messages": [
+    {
+      "fromName": "Wildwood Family Support",
+      "fromEmail": "help@eastvale.example",
+      "subject": "Re: Wildwood Inquiry: Waitlist Request - jor9dan@southgate.example - 2894419530182 - Ticket #618429",
+      "date": "2026-08-14",
+      "isSent": false,
+      "body": "-- Please reply above this line --\n\n\n Hello there,\n\n The Family Support Team has received your message and assigned you\nTICKET #618429.\n\n We endeavor to respond to each ticket within 24-48 business hours.\nYou can also view our Frequently Asked Questions [1].\n\n Keep Exploring,\n WILDWOOD OUTDOOR\n Family Support Team\n help@eastvale.example [2] \n\n-------------------------\n OFFICE HOURS:\n Monday - Friday: 8 am - 4 pm\n Closed Saturday & Sunday \n  Please note if you are receiving this message after signing up for a\nwaitlist, the Family Support team will only reach out should a space\nbecome available.\n\n Our team aims to respond to all inquiries within 24–48 hours.\nRequests related to credits, refunds, or camp changes typically take\n5–7 business days to process, as they undergo an internal review. We\nappreciate your patience and are committed to supporting you every\nstep of the way.\n  \n\nLinks:\n------\n[1] /#\n[2] mailto:help@eastvale.example"
+    }
+  ],
+  "expect": {
+    "obligations": "some",
+    "court": "theirs",
+    "temporalClass": "waiting_on"
+  }
+}

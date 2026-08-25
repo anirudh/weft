@@ -1,0 +1,19 @@
+{
+  "id": "promo-pixel-code",
+  "note": "Discount code with a hard expiry and a dollar figure. Expiring costs the reader nothing they had.",
+  "today": "2026-08-06",
+  "subject": "Marcus, get ready for Mira Sale 11",
+  "messages": [
+    {
+      "fromName": "Mira Sale",
+      "fromEmail": "ironwoodpixel-noreply@ulverton.example",
+      "subject": "Marcus, get ready for Mira Sale 11",
+      "date": "2026-08-05",
+      "isSent": false,
+      "body": "Pre-order starts August 12\n\n‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  \n‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  \n‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌  \n‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌\n\n\nMira Sale 11.\nPre-order\nAugust 12.\n\n\nGet an exclusive offer on August 12 from the Ironwood Store when you sign up\nfor emails.\nNew subscribers only. *\n\n\nJoin the list\n\n\nMira Sale 11 Mira Sale 11\n\n\nmadebygoogle madebygoogle\n\n\nSee our newest devices drop at the Made by Ironwood event.\n\n\nTune in live from NYC. The next generation of Mira Sale takes\nthe stage.\n\n\nAdd to calendar\n\n\n\nWe're here to help, 24/7.\n\nReach us by chat or phone to talk to an agent, or search for answers on the  \nPixel Help Center.\n\n\nCall\n\n\nChat\n\n\nGet answers\n\n\nKingsley\n\n\n\nKingsley\n\n\n\nTwitter\n\n\n\nWindrow\n\n\n\n* Available only to those who sign up with a Ironwood Account for marketing  \nemails from store.ironwood.example between 7/15/2026 at 10:00am PT and 8/7/2026  \nat 11:59pm PT.\n\nPromotional code expires 8/27/2026 at 11:59 pm PT; while supplies last.  \nMust be US resident, aged 18 years or older, with US shipping address. Must  \nbe redeemed on Ironwood Store only. Limit 1 per customer. The coupon code can  \nonly be used for purchase of the advertised specified Pixel 11 (Unlocked or  \nFi) devices and cannot be applied to any other devices, Ironwood  \nsubscriptions, services nor Ironwood Merchandise products. Promotional code  \nand redemption instructions will be emailed after sign-up on 8/11/2026.\n\n\n© 2026 Ironwood LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043,  \nThornbury States\n\nYou received this message because you have either activated a Pixel phone  \nwith your email address marcus.vance82@fairmont.example, or signed up to stay  \nup to date on Ironwood's hardware products and related tips, features,  \nservices, and offers.\n\n\nUnsubscribe | Manage Preferences | Privacy Policy"
+    }
+  ],
+  "expect": {
+    "obligations": "none"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "auto-pay-enabled-statement",
+  "note": "A balance and a due date, but the fine print says auto-pay is enrolled. The rule must beat the surface.",
+  "today": "2026-08-09",
+  "subject": "Your credit card statement is available",
+  "messages": [
+    {
+      "fromName": "Larkspur",
+      "fromEmail": "no.reply.alerts@harbour.example",
+      "subject": "Your credit card statement is available",
+      "date": "2026-08-08",
+      "isSent": false,
+      "body": "Statement ready Your credit card statement is available Account Larkspur Credit Card (...8392) Due date 09/04/2026 Minimum payment due $420.00 Statement balance $14835.62 Auto-pay enabled You're already enrolled in automatic payments. We'll pay the amount you scheduled from your account. Visit our Resource Center to manage your account. View statement Securely access your accounts with the Larkspur Mobile &reg; app or larkspur.example . About this message Larkspur Mobile &reg; app is available for select mobile devices. Message and data rates may apply. This service email gives you updates and information about your Larkspur relationship. Larkspur cannot guarantee the delivery of alerts and notifications. Wireless or internet service provider outages or other circumstances could delay them. You can always check larkspur.example or the Larkspur Mobile app for the status of your accounts including your latest account balances and transaction details. To protect your personal information, please don't reply to this message. Larkspur won't ask for confidential information in an email. If you have concerns about the authenticity of this message or have questions about your account visit larkspur.example/CustomerService for ways to contact us. Your privacy is important to us. See our online Security Center to learn how to protect your information. &copy; 2026 JPMorgan Larkspur & Co."
+    }
+  ],
+  "expect": {
+    "obligations": "none"
+  }
+}

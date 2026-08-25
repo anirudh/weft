@@ -1,0 +1,20 @@
+{
+  "id": "sub-trial-upsell-no-price",
+  "note": "Trial ending, written as an upsell, no price named. Flipped between runs — pinned to catch drift.",
+  "today": "2026-08-15",
+  "subject": "Your trial ends soon. Here’s how to keep reading.",
+  "messages": [
+    {
+      "fromName": "Dev Ashbury",
+      "fromEmail": "accounts@ulverton.example",
+      "subject": "Your trial ends soon. Here’s how to keep reading.",
+      "date": "2026-08-14",
+      "isSent": false,
+      "body": "Keep reading. Keep thinking. Keep growing. Dear Marcus Holloway, We hope you’ve been enjoying your trial, which will end on 08/21/2026 . T here’s still time to explore everything Dev Ashbury has to offer, including: Unlimited access to every Beacon story Dev Ashbury app for iOS and Android with our latest journalism, games, audio, and more Narrated articles and podcasts like Radio Beacon , Galaxy Brain , and The David Frum Show Daily games like Bracket City and the crossword, plus full access to past puzzles Newsletters on books, AI, the Trump presidency, and more A 169-year digital archive featuring Baldwin, Hemingway, Plath, and Steinbeck Unlimited gift articles to share with friends and family If you’d like to keep enjoying all these benefits and more, you don’t need to do anything. Your trial will automatically convert to a one-year subscription on 08/21/2026 at a rate of $74.99 per year (plus tax and international shipping, where applicable). Your subscription will automatically renew at the end of your term for an additional one-year term, unless you cancel. You can manage or cancel this subscription by visiting your account . If you cancel before your trial ends, your upcoming subscription will be canceled immediately, and you won't be charged for the one-year subscription. As always, we'll email you before each renewal with your upcoming subscription term and rate. You can also review our full terms of sale here . Questions? Please contact our Customer Care team . Thank you for reading and for helping support independent journalism. —The Team at Dev Ashbury Issues of Dev Ashbury magazine are published monthly. Download Dev Ashbury app for Android and iOS Privacy Policy Responses to this email are not monitored. For customer-service inquiries or assistance with your account, please visit our Help Center . Dev Ashbury ∙ 450 K St. NW ∙ Washington, DC 20001"
+    }
+  ],
+  "expect": {
+    "obligations": "some",
+    "court": "yours"
+  }
+}

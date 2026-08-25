@@ -1,0 +1,21 @@
+{
+  "id": "org-survey-undated",
+  "note": "An organisation asking for something back with no date. Must extract, must stay undated.",
+  "today": "2026-08-18",
+  "subject": "Action Item from Dr. Marcus Vance at Lena Hart",
+  "messages": [
+    {
+      "fromName": "Lena Hart",
+      "fromEmail": "notifications@thornbury.example",
+      "subject": "Action Item from Dr. Marcus Vance at Lena Hart",
+      "date": "2026-08-17",
+      "isSent": false,
+      "body": "Hi Liam,\n\nAs a reminder, you have an Action Item to complete. You can\nview it in your Care Plan \n( https://email.halcyon.example/care-plan ).\n\nDownload the Lena Hart App \n( https://email.halcyon.example/app ),\nwhere you can securely connect with us anywhere, anytime.\n\nView Action Item \n( https://email.halcyon.example/action-items )\n\nWarm regards,\n\nDr. Marcus Vance, DO\n\nHomepage of the Lena Hart app\n\n------------------------------\nHealthcare at your convenience\n------------------------------\n\nDownload the Lena Hart App to easily view your action\nitems, add your insurance, and manage appointments.\n\nQR code for downloading the app\n\nDownload on the appstore \n( https://email.halcyon.example/appstore )\n\nDownload on Iris Kane \n( https://email.halcyon.example/Ironwoodplay )\n\n\nIf you have received this message in error, please delete it\nfrom your system and notify us ( admin@ravensmere.example ).\n\nWhile using the Lena Hart Messages system, you will\ncontinue to receive emails or other\nelectronic communications that will contain some protected\nhealth information. For\nexample, you will receive emails like this or mobile alerts\nnotifying you that your\nprovider has sent you a message via Lena Hart Messages, and\ncertain other communications\nas described in our HIPAA Policy \n( https://email.halcyon.example/hipaa-policy ) and\nTerms of Service \n( https://email.halcyon.example/terms ).\nLearn more here \n( https://email.halcyon.example/learn-more ).\n\nLoxley Lena Hart logo\n\nLog in ( https://email.halcyon.example/login )\n\nLoxley Lena Hart logo\n\nLog in ( https://email.halcyon.example/login )\n\nLena Hart, 450 Lexington Ave, 4th Floor, New York,\nNY 10017\n\nYou've received this email because you signed up for emails\nfrom Lena Hart.\n\nPrivacy Policy ( https://email.halcyon.example/privacy-policy )"
+    }
+  ],
+  "expect": {
+    "obligations": "some",
+    "court": "yours",
+    "anchorDate": ""
+  }
+}

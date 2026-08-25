@@ -187,6 +187,25 @@ Your August statement reflects a balance of $312.50, due 31 August 2026.</thread
 </example>
 </examples>`;
 
+/**
+ * The exact prompt the extractor sends. Exported so the eval harness in
+ * ./eval exercises this and not a copy of it — a fixture suite that drifts
+ * away from the code it is meant to guard is worse than no suite at all.
+ */
+export function buildExtractionPrompt(a: {
+  threadText: string; subject: string; today: string; accountEmail: string;
+}): string {
+  return `${EXAMPLES}
+
+Today is ${a.today}. You are reading the mailbox of ${a.accountEmail}.
+
+<thread>
+Subject: ${a.subject}
+
+${a.threadText}
+</thread>`;
+}
+
 export type ExtractProgress = {
   state: 'idle' | 'running' | 'done' | 'error';
   done: number; total: number; obligations: number; capped: number;
@@ -258,15 +277,12 @@ export async function runExtraction(limit?: number): Promise<ExtractProgress> {
       const { text, capped } = buildThreadText(msgs);
       if (capped) progress.capped++;
 
-      const user = `${EXAMPLES}
-
-Today is ${today}. You are reading the mailbox of ${accountEmail.get(t.accountId) ?? 'the reader'}.
-
-<thread>
-Subject: ${t.subject}
-
-${text}
-</thread>`;
+      const user = buildExtractionPrompt({
+        threadText: text,
+        subject: t.subject,
+        today,
+        accountEmail: accountEmail.get(t.accountId) ?? 'the reader',
+      });
 
       try {
         const { data, usage } = await generateJson<unknown>({

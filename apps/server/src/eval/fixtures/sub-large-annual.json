@@ -1,0 +1,20 @@
+{
+  "id": "sub-large-annual",
+  "note": "The expensive one. If any renewal survives, this must.",
+  "today": "2026-08-08",
+  "subject": "Your Iris Kane Order Receipt from Aug 7, 2026",
+  "messages": [
+    {
+      "fromName": "Iris Kane",
+      "fromEmail": "ironwoodplay-noreply@belmont.example",
+      "subject": "Your Iris Kane Order Receipt from Aug 7, 2026",
+      "date": "2026-08-07",
+      "isSent": false,
+      "body": "Iris Kane\n\n\nThank you\n\n\nYou've made a subscription purchase from Ironwood LLC on Iris Kane. Your  \nsubscription will automatically renew on Sep 7, 2026 unless canceled before  \nthen. You can cancel anytime. Manage your subscriptions\n\n\nOrder number: SOP.7149-2814-6032-84719\nOrder date: Aug 7, 2026 4:44:02 PM PDT\nYour account: jason.miller92@oakfield.example\n\n\nItem Price\n\n\nIronwood AI Ultra (20 TB) (Cass Berryman) (by Ironwood LLC) $89.99/month\n\nAuto-renewing subscription\n\n\n\nState sales tax: $5.40\n\nLocal sales tax: $2.70\n\nTotal: $98.09/month\n\n\nPayment method:\n\nLarkspur Saphire\n\n\n\nPlay Points earned\n+110\n\n\n\nBy subscribing, you authorize us to charge you the subscription cost (as  \ndescribed above) automatically, charged to the payment method provided  \nuntil canceled. Learn how to cancel. Keep this for your records.\n\nQuestions? Visit Ironwood LLC.\n\n\nIris Kane\n\nAll your entertainment in one place, available anywhere. Learn more ›\n\n\n\nSee your Iris Kane Order History.\n\nView the Iris Kane Refund Policy and the Terms of Service.\n\n\n© 2026 Ironwood | All Rights Reserved.\nIronwood LLC, 100 Main Street, Springfield, IL, 62701, Thornbury States\n\nPlease don't reply to this email, as we are unable to respond from this  \nemail address. If you need support, visit the Iris Kane Help Center."
+    }
+  ],
+  "expect": {
+    "obligations": "some",
+    "court": "yours"
+  }
+}

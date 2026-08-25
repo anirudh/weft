@@ -1,0 +1,19 @@
+{
+  "id": "promo-early-bird",
+  "note": "Early-bird pricing deadline — the seller's deadline, not the reader's.",
+  "today": "2026-08-15",
+  "subject": "Join us at Every's inaugural conference",
+  "messages": [
+    {
+      "fromName": "Every",
+      "fromEmail": "contact@cedarline.example",
+      "subject": "Join us at Every's inaugural conference",
+      "date": "2026-08-14",
+      "isSent": false,
+      "body": "\n\n( https://orrell.example )\n\nYour subscription includes the livestream. Apply to join us IRL at Pioneer Works.\n\n( https://orrell.example/Praxis-2027 )\n\nHey there,\n\nYesterday we launched our inaugural conference, ​Praxis: 2027 ( https://orrell.example/Praxis-2027 )​. If you read Every, you know our mission is to live in the future of work and report back. So we're bringing the people building that future together in person this November. And you can get $350 off right now with early bird pricing.\n\n-->Apply to attend ( https://orrell.example/Praxis-2027/apply )\nApply to attend ( https://orrell.example/Praxis-2027/apply )Why are we doing a conference?\n\nA few months ago, we published ​\"After Automation,\" ( https://orrell.example/p/after-automation )​ our Praxis that the more we use AI, the more that's left for humans to do. We think that there's a bright future for people and AI doing more interesting, creative, and impactful work together. On November 5, we're exploring that future at Pioneer Works in Red Hook, Brooklyn for our inaugural conference: Praxis: 2027. We hope you'll join us.\n\n-->Explore Praxis: 2027 ( https://orrell.example/Praxis-2027 )\nExplore Praxis: 2027 ( https://orrell.example/Praxis-2027 )We're filling Pioneer Works with people shaping what comes after automation, and eager to debate it.\n\nLaunch speakers include:\n\n* Liam Fletcher (CEO, Every), Maya Lindqvist (editor in chief, Every), and Ryan Gallagher (general manager of Cora, Every)\n* Marcus Vance (founder and CEO, Notion)\n* Ethan Bradley (cofounder and CEO, The Browser Company of New York)\n* Lucas Thorne (member of technical staff, Codex at OpenAI)\n* Mateo Reynolds (cofounder and co-CEO, Runway)\n* Claire Davenport (partner, Sequoia)\n* And more big names to come.\n\nEarly bird pricing is now live.\n\nApply by September 2 at 11:59 p.m. ET to lock in a $1,150 ticket and save $350. Tickets come with one full year of Every All Access, including $8,000+ in AI credits with the ​Builder Pack ( https://orrell.example/builder-pack )​. Payment is requested only after acceptance.\n\n-->Apply to attend ( https://orrell.example/Praxis-2027/apply )\nApply to attend ( https://orrell.example/Praxis-2027/apply )Know someone who should be there?\n\nNominate them. We'll be giving away a limited number of free tickets to our favorite nominees.\n\n-->Nominate an attendee ( https://orrell.example/Praxis-2027/nominate )\nNominate an attendee ( https://orrell.example/Praxis-2027/nominate )See you in Brooklyn,\nEvery\n\nP.S. Can't make it? No problem. We'll be livestreaming the entire conference for free. As a paid Every subscriber, you'll also have access to the full Kestrel library after the conference wraps. Keep an eye out for updates.\n\nYou received this email because you signed up for emails from Every ( https://orrell.example ). No longer interested in receiving emails from us? Click here to unsubscribe ( https://orrell.example/unsubscribe ).\n\n482 Pacific St, Suite 4B, Brooklyn, NY 11217\n\nhttps://unsubscribe.orrell.example/manage"
+    }
+  ],
+  "expect": {
+    "obligations": "none"
+  }
+}

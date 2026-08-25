@@ -1,0 +1,21 @@
+{
+  "id": "sub-renewal-dated",
+  "note": "Ordinary auto-renewal with date and amount. The base case that must never regress.",
+  "today": "2026-08-07",
+  "subject": "Your receipt from Belmont.",
+  "messages": [
+    {
+      "fromName": "Belmont",
+      "fromEmail": "no_reply@belmont.example",
+      "subject": "Your receipt from Belmont.",
+      "date": "2026-08-06",
+      "isSent": false,
+      "body": "Receipt August 6, 2026 Order ID: QP4K82R7LN Document: 839102471629 Belmont Account: rohan.vance@marlowe.example Lightbox: Photo & Kestrel Editor Monthly Subscription (Monthly) Renews August 27, 2026 $5.99 Billing and Payment Julian Mercer 742 Evergreen Terrace Springfield OR 97477-2104 Thornbury States Subtotal $5.99 Tax $0.62 Owen Trent $6.61 Get Help with Subscriptions and Purchases Manage Subscriptions › Purchase History › Report a Problem › View Your Account Information › Visit Belmont Support › Privacy: We use a Subscriber ID to provide reports to developers. TM and © 2026 Belmont Inc. One Belmont Park Way, Cupertino, CA 95014, Thornbury States All Rights Reserved | Privacy Policy | Terms of Sale"
+    }
+  ],
+  "expect": {
+    "obligations": "some",
+    "court": "yours",
+    "temporalClass": "window"
+  }
+}

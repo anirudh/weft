@@ -1,0 +1,20 @@
+{
+  "id": "org-school-form",
+  "note": "School logistics, no deadline stated.",
+  "today": "2026-08-12",
+  "subject": "FW: 2026-27 SCHOOL BUS WAITLIST LINK",
+  "messages": [
+    {
+      "fromName": "Whitmore, Laura (Lauren)",
+      "fromEmail": "whitmorel@cedarline.example",
+      "subject": "FW: 2026-27 SCHOOL BUS WAITLIST LINK",
+      "date": "2026-08-11",
+      "isSent": false,
+      "body": "The link below is for Maple Ridge Open Enrolled/Open Transfer families who would like to apply for school bus transportation.  Priority will be assigned on a first come-first served basis after we have run our counts to determine seat availability. The link is live so please apply for bus transportation now.\n\nMaple Ridge Elementary 2026-27 School Bus Waitlist<https://forms.cloud.Southgate/Pages/ResponsePage.aspx>\n\nStudent bus stop information will be available through the Stopfinder App. Learn more about the new App here:  www.msd204.org/stopfinder<http://www.msd204.org/stopfinder>\n\nFor eligible student bus riders who live outside the no-transportation zone, bus information will be sent in an email on Monday, August 17th from no_reply@larkspur.example<mailto:no_reply@larkspur.example>\nCheck your spam folder if you do not see this in your email box.  For any families new to the Stopfinder App, an invitation will link your student's route information to the Stopfinder App once you have accepted the invitation.\n\nIf you have transportation questions, please reach out to the Transportation Department at 503.555.0142 or at transportation@rooksby.example<mailto:transportation@rooksby.example>\n\nEnjoy the rest of you summer break.  We look forward to seeing you soon.\n\nLaura Whitmore\nOffice Manager\nMaple Ridge Elementary\nMidland School District\nPh: 503.555.0190\nFx: 503.555.0191\nwhitmorel@cedarline.example<mailto:whitmorel@cedarline.example>\nmsd204.org/mapleridge"
+    }
+  ],
+  "expect": {
+    "obligations": "some",
+    "court": "yours"
+  }
+}

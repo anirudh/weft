@@ -1,0 +1,21 @@
+{
+  "id": "anchor-dashed-us-date",
+  "note": "Registrar writes the expiry as 07-30-2026. This fixture exists for the date FORMAT — a dashed US date cost a real deadline until the anchor validator learned it. Whether a domain renewal is a deadline or a window is a genuine toss-up in our own taxonomy, so assert the anchor, not the class.",
+  "today": "2026-07-27",
+  "subject": "ICANN Domain Notice",
+  "messages": [
+    {
+      "fromName": "Rooksby",
+      "fromEmail": "support@orrell.example",
+      "subject": "ICANN Domain Notice",
+      "date": "2026-07-26",
+      "isSent": false,
+      "body": "Message from Tucows.com, Co.\n\nHello -\n---\nThis is an automated email that you have one or more domain names with renewal dates in the next 5 days:\n\n| Domain name | Expiry date\n---|---\nblueprismstudios.org | 07-30-2026\n\n### About this email\n\nYou have been sent this email because you are the listed owner of a domain name. The Internet Corporation for Assigned Names and Numbers (ICANN) requires that all domain registrants are reminded that they have domain names that are coming up for renewal. These notices must be sent at approximately 30 days and again 5 days prior to the renewal date of the domain. An additional reminder must be sent approximately 3 days after the renewal date in the event the domain is not renewed. Depending on your communication preferences, you may receive an additional reminder from Rooksby including specific information about the automatic renewal status of your domain(s). You can view and manage domains in your Rooksby account at: https://www.rooksby.example/domains If you have any questions or require any assistance, please contact Rooksby at [support@orrell.example](mailto:support@orrell.example)."
+    }
+  ],
+  "expect": {
+    "obligations": "some",
+    "court": "yours",
+    "anchorDate": "2026-07-30"
+  }
+}

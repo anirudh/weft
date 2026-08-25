@@ -1,0 +1,21 @@
+{
+  "id": "org-corporate-action",
+  "note": "Reply-by with a time and timezone. Real consequence, dry wording.",
+  "today": "2026-08-02",
+  "subject": "STONEHARBOR STRATEGIC FUND Corporate Action Notice",
+  "messages": [
+    {
+      "fromName": "Lena Hart",
+      "fromEmail": "notice@kingsley.example",
+      "subject": "STONEHARBOR STRATEGIC FUND Corporate Action Notice",
+      "date": "2026-08-01",
+      "isSent": false,
+      "body": "Charles Pemberton 96 Please review all materials before deciding. Your account ending in: #####847 Review your notification or voluntary corporate action. You have an important notification or voluntary corporate action for one or more securities in your account ending in #####847. Please take a moment to read the full message for any actions you may need to take. Step 1: Review information about your offering. If this area is blank, continue to Step 2. Offer Type: A REPURCHASE OFFER Security Description: STONEHARBOR STRATEGIC FUND CUSIP#: 649281735 Quantity: 5,421.870000 Offer Expires: &zwnj;August 31, 2026&zwnj; 11:59 PM ET Reply By: &zwnj;August 27, 2026&zwnj; 11:59 PM ET Step 2: Click below to read your notification(s) or offering material(s). Offer Step 3: Remember these things. You may receive a separate notification from us, which provides additional information about your participation options and the response deadline. Keep timing in mind: Our deadline to respond will come before the expiration date as we need time to process your request. There may be limited circumstances where our separate notification directs you or your advisor (if applicable) to respond to someone other than Pemberton. If you have questions about the materials, please contact the company or agent(s) directly using the contact information included in the offering materials (if applicable). Step 4: Monitor market conditions. We encourage you to monitor market conditions, prices, and events surrounding all securities involved in the event. Questions? If you have any questions about this notification , please call us at &zwnj;1-800-555-0199.&zwnj; If you&rsquo;re calling us from outside the U.S., please call us at &zwnj;+1-415-555-0142.&zwnj; To view the documents noted above, you may need to download Adobe Acrobat Reader . The information provided here is for general informational purposes only and is not intended to be a substitute for specific individualized tax, legal or investment planning advice. Where specific advice is necessary or appropriate, consult with a qualified tax advisor, CPA, financial planner or investment manager. If you have any questions or concerns, PLEASE DO NOT REPLY TO THIS EMAIL. Instead, &zwnj;visit Pemberton.com/contactus&zwnj; to identify a fast and simple way to get in touch. For your protection, we are unable to accept instructions to change your email address sent in reply to this message. To update your address using a secure channel, please log in to your account. For your security, Charles Pemberton will never request personal information through email. Privacy and PembertonSafe &reg; Read about Pemberton's privacy policy . Review PembertonSafe &reg; and The Pemberton Security Guarantee NOTICE: All emails sent to or from the Charles Pemberton corporate email system may be retained, monitored, and/or reviewed by affiliated personnel. Lena Hart, &zwnj;300 Montgomery Street, San Francisco, CA 94104&zwnj; &copy; 2026 Lena Hart All rights reserved. (Member SIPC ) &zwnj;(0984-7TK4) EML839201-00 (01/20) PROXY&zwnj;"
+    }
+  ],
+  "expect": {
+    "obligations": "some",
+    "court": "yours",
+    "temporalClass": "deadline"
+  }
+}

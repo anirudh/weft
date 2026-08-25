@@ -1,0 +1,20 @@
+{
+  "id": "sub-trial-converting",
+  "note": "Trial converting to paid at a weekly rate.",
+  "today": "2026-08-23",
+  "subject": "Your Subscription is Confirmed",
+  "messages": [
+    {
+      "fromName": "Belmont",
+      "fromEmail": "no_reply@belmont.example",
+      "subject": "Your Subscription is Confirmed",
+      "date": "2026-08-22",
+      "isSent": false,
+      "body": "Subscription Confirmed Notewell 3 Premium Dear Marcus, You've accepted the following offer: App Notewell 3: AI Digital Notes Subscription Notewell3 Weekly Premium Content Provider Fluid Touch Pte. Ltd. Date Accepted Aug 21, 2026 Trial Free for 3 days, starting Aug 21, 2026 Renewal Price $4.99/week, starting Aug 24, 2026 Your subscription automatically renews until canceled. To avoid being charged, you must cancel at least a day before each renewal date. To learn more or cancel, review your subscription . Regards, Belmont For help with subscriptions and purchases, visit Belmont Support . Belmont Account • Terms of Sale • Privacy Policy Copyright © 2026 Belmont Inc. All rights reserved"
+    }
+  ],
+  "expect": {
+    "obligations": "some",
+    "court": "yours"
+  }
+}

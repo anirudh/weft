@@ -1,0 +1,21 @@
+{
+  "id": "event-calendar-invite",
+  "note": "Calendar invitation from a person. Structurally unlike any marketing mail.",
+  "today": "2026-08-05",
+  "subject": "Invitation: Food & Laundry: Prep for the week @ Weekly from 10am to 11am on Sunday (PDT) (Rohan Deshmukh)",
+  "messages": [
+    {
+      "fromName": "Kavita Rao",
+      "fromEmail": "kavita.rao78@tarnbrook.example",
+      "subject": "Invitation: Food & Laundry: Prep for the week @ Weekly from 10am to 11am on Sunday (PDT) (Rohan Deshmukh)",
+      "date": "2026-08-04",
+      "isSent": false,
+      "body": "Food & Laundry: Prep for the week\nWeekly from 10am to 11am on Sunday\nPacific Time - Los Angeles\n\nJoin with Ironwood Meet\nhttps://meet.ironwood.example/abc-defg-hij\n\n\n\n\nOrganizer\nKavita Rao\nkavita.rao78@tarnbrook.example\n\nGuests\nKavita Rao - organizer\nRohan Deshmukh\nView all guest info  \nhttps://calendar.ironwood.example/calendar/event\n\nReply for rohan.deshmukh24@wexford.example and view more details  \nhttps://calendar.ironwood.example/calendar/event\nYour attendance is optional.\n\n~~//~~\nInvitation from Ironwood Calendar: https://calendar.ironwood.example/calendar/\n\nYou are receiving this email because you are subscribed to calendar  \nnotifications. To stop receiving these emails, go to  \nhttps://calendar.ironwood.example/calendar/r/settings, select this calendar, and  \nchange \"Other notifications\".\n\nForwarding this invitation could allow any recipient to send a response to  \nthe organizer, be added to the guest list, invite others regardless of  \ntheir own invitation status, or modify your RSVP.\n\nLearn more https://support.ironwood.example/calendar/answer/37135#forwarding"
+    }
+  ],
+  "expect": {
+    "obligations": "some",
+    "court": "yours",
+    "temporalClass": "event"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "promo-rate-discount",
+  "note": "Financial-sounding promo. Reads urgent, owes nothing.",
+  "today": "2026-08-14",
+  "subject": "Reminder: Rates just dropped (now as low as 3.65% APR)",
+  "messages": [
+    {
+      "fromName": "Brightpath",
+      "fromEmail": "no-reply@brightpath.example",
+      "subject": "Reminder: Rates just dropped (now as low as 3.65% APR)",
+      "date": "2026-08-13",
+      "isSent": false,
+      "body": "The discount deadline is 9/3/26\n‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌ ‌\nbody, table, td { font-family: Arial, sans-serif !important; }\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n Brightpath\nLog in ( https://www.Brightpath.com/login )\nGRADUATE STUDENT LOANS       Score a lower rate this semester.\nThere’s still time.              View your rate \n( https://www.Brightpath.com/student-loans )\n                      \n( https://www.Brightpath.com/student-loans )\n              Hey\n\nMarcus,\n\n It’s not too late to make that\n0.35% rate discount¹ really count. You could send your student\nloan rate down to as low as 3.65% APR².\n\nIt’s a quick way you could save some serious cash on covering\nthe cost of college. Get moving on that low fixed rate and snag\nthe discount before 9/3/26.\n\nAnd the cherry on top? There’s no fees required AND the terms\nare flexible.                 View your rate \n( https://www.Brightpath.com/student-loans )\n            ✔ Checking won’t affect your credit score.†\nPlease borrow responsibly.\nBrightpath Private Student Loans are not a substitute for federal\nloans, grants, and work-study programs. We encourage you to\nevaluate all your federal student aid options before you consider\nany private loans, including ours. Read our\n\n FAQs (\nhttps://www.Brightpath.com/faq ).                 Take a\ncloser look at Brightpath Private Student Loans \n( https://www.Brightpath.com/private-student-loans ).\n\n chat bubble (\nhttps://www.Brightpath.com/contact-us )"
+    }
+  ],
+  "expect": {
+    "obligations": "none"
+  }
+}
