@@ -1,0 +1,63 @@
+#!/bin/sh
+#
+# Blocks a commit that would publish secrets or personal data.
+#
+# This exists because a sweep that merely *runs* is not a check. Twice in one
+# session the same scan printed a real match and the commit went through anyway,
+# because the scan and the commit were in the same command. A hook cannot be
+# skipped by accident: it exits non-zero and git stops.
+#
+# Enable with:  git config core.hooksPath .githooks
+#
+# Two sources of patterns:
+#   - the generic ones below, which are safe to publish
+#   - data/secret-patterns.txt, one extended regex per line, gitignored, because
+#     the list of things you must not publish is itself a thing you must not
+#     publish
+
+added=$(git diff --cached --diff-filter=ACM -U0 | grep '^+' | grep -v '^+++')
+[ -z "$added" ] && exit 0
+
+fail=0
+report() {
+  [ "$fail" -eq 0 ] && printf '\n  COMMIT BLOCKED — staged changes contain:\n\n'
+  fail=1
+  printf '    %s\n' "$1"
+  printf '%s\n' "$2" | head -3 | cut -c1-120 | sed 's/^/        /'
+}
+
+# Credentials. These are never acceptable in any repo.
+for entry in \
+  'Google OAuth client secret|GOCSPX-[A-Za-z0-9_-]{10,}' \
+  'Google OAuth client id|[0-9]{8,}-[a-z0-9]{20,}\.apps\.googleusercontent\.com' \
+  'Google access token|ya29\.[A-Za-z0-9_-]{20,}' \
+  'Google refresh token|1//0[A-Za-z0-9_-]{20,}' \
+  'AWS access key|AKIA[0-9A-Z]{16}' \
+  'private key block|-----BEGIN [A-Z ]*PRIVATE KEY-----' \
+  'generic api key assignment|(api[_-]?key|secret|password)["'"'"' ]*[:=]["'"'"' ]*[A-Za-z0-9_-]{16,}'
+do
+  label=${entry%%|*}; pattern=${entry#*|}
+  hits=$(printf '%s\n' "$added" | grep -inE -e "$pattern")
+  [ -n "$hits" ] && report "$label" "$hits"
+done
+
+# Payment-shaped numbers, which is how a real card last-four and balance reached
+# a public commit in the first place.
+hits=$(printf '%s\n' "$added" | grep -inE '\(\.\.\.[0-9]{4}\)|\bx{4}[0-9]{4}\b|\b[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}\b')
+[ -n "$hits" ] && report "looks like a card number or last-four" "$hits"
+
+# Project-specific terms: real names, brands, places, figures. Gitignored.
+if [ -f data/secret-patterns.txt ]; then
+  while IFS= read -r pattern; do
+    case "$pattern" in ''|'#'*) continue;; esac
+    hits=$(printf '%s\n' "$added" | grep -inE -e "$pattern")
+    [ -n "$hits" ] && report "matches a local pattern in data/secret-patterns.txt" "$hits"
+  done < data/secret-patterns.txt
+fi
+
+if [ "$fail" -ne 0 ]; then
+  printf '\n  Fix the lines above, or if it is genuinely a false positive:\n'
+  printf '    git commit --no-verify\n\n'
+  exit 1
+fi
+exit 0

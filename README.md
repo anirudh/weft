@@ -47,3 +47,22 @@ built as a single-user app.
 ## License
 
 TBD.
+
+## Before you commit
+
+```sh
+git config core.hooksPath .githooks
+```
+
+A pre-commit hook refuses any commit whose staged lines contain credentials,
+card-shaped numbers, or anything listed in `data/secret-patterns.txt`.
+
+That file is gitignored, because the list of things you must not publish is
+itself a thing you must not publish. It holds the names, brands and figures
+particular to your mailbox; the hook ships with the generic credential patterns
+built in, so it is useful before you write one.
+
+The hook exists because scanning by hand does not work. Twice in one session a
+sweep printed a real match and the commit went through anyway, because the scan
+and the commit were in the same command. A check has to be able to stop the
+thing it is checking.
