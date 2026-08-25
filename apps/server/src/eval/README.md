@@ -87,6 +87,37 @@ Thinking level was measured rather than assumed:
 
 `low` is the setting. Use `--thinking` to re-measure if the model changes.
 
+## One restructure, measured and rejected
+
+The prompt is a long list of specific shapes rather than a few general
+principles, and that looks like something to clean up. It was tried, with this
+corpus as the safety net, and it is measurably worse:
+
+| prompt | passes /225 |
+|---|---|
+| as it stands | 219, 222 (two runs) |
+| rewritten around one test + four canonical exclusions | 202 |
+
+Suite-level variance between identical runs is about ±3 passes, so 202 is well
+outside it. The general version broke cases the specific list had solid — an
+auto-pay statement and a membership discount both went from passing to 0/5. The
+long list is doing real work; generality lost discriminations that took a day of
+real mail to find.
+
+**Do not "fix" the camp-evaluation example.** Example seven extracts a camp
+evaluation, which the prose explicitly says to drop. It is a genuine logical
+contradiction and it is load-bearing. Three separate attempts to resolve it —
+making it return nothing, swapping it for an undated medication form, and the
+full restructure — each dropped the suite to 202-212, and each broke
+`auto-pay-enabled-statement` from 5/5 to 0/5. The untouched version passes it
+10/10 across two runs. No mechanism explains this; the measurement is
+unambiguous. If you change it, run `--reps 5` before and after and be ready to
+revert.
+
+The wider lesson: a few-shot example teaches more than its stated case. That one
+is also one of only two showing an *undated* obligation being extracted, and
+removing that demonstration appears to make the model broadly more conservative.
+
 ## Labels are the weak link
 
 Three times while building this, a fixture failed and the prompt turned out to
