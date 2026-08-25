@@ -47,18 +47,26 @@ export function score(o: Rankable, now: number): number {
     }
 
     case 'deadline':
-      if (d === null) return 0.5;              // real, but undated — mid band
+      if (d === null) {
+        // Undated does not mean timeless. Before this, an undated obligation
+        // sat at 0.5 for ever — a camp waiver whose own detail said "Monday
+        // August 3rd" was still mid-list three weeks later, because the model
+        // had quoted "first day" and the anchor validator rightly rejected it.
+        // With no date, the only evidence of life is the thread itself, so it
+        // decays on that: still mid-band while the mail is fresh, gone by the
+        // time nobody has mentioned it in a month.
+        return 0.5 * Math.pow(0.5, daysSince(o.lastMessageAt, now) / 10);
+      }
       if (d === 0 || d === -1) return 1;       // due, or slipped a day — still today's work
       if (d < -1) {
-        // Grace, then rot. Weft has read-only access, so it can never know
-        // whether you renewed the domain — it only knows nobody has mentioned
-        // it in eleven days. A deadline that old was either handled elsewhere
-        // or stopped mattering; pinning it at the top forever is the exact
-        // failure this product exists to prevent.
-        if (d >= -3) return 0.7;
-        if (d >= -7) return 0.4;
-        if (d >= -14) return 0.2;
-        return 0.05;                           // receded
+        // Grace, then rot — and faster than it used to. Weft has read-only
+        // access, so it can never know whether you renewed the subscription;
+        // it only knows nobody has mentioned it since. A deadline three days
+        // past used to score 0.7 and tie with something genuinely due in a
+        // week, which is backwards: the live one deserves the attention.
+        if (d >= -3) return 0.45;
+        if (d >= -7) return 0.25;
+        return 0.05;                           // past a week: receded
       }
       if (d === 1) return 0.95;
       if (d <= 3) return 0.85;

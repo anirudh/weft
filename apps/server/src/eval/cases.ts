@@ -205,6 +205,12 @@ export const CASES: Case[] = [
         + 'wholesale abandonment of a dense email rather than removal of one part.',
     expect: { obligations: 'some', court: 'yours', atLeast: 3 } },
 
+  // ── A digest is one ambient thing, not a list of obligations. ──
+  { id: 'none-newsletter-digest',
+    note: 'See the fixture file - hand-written at realistic length. The short stand-in it '
+        + 'replaces passed easily while the real newsletter produced four obligations.',
+    expect: { obligations: 'none' } },
+
   // ── Known gaps: reported, not failed. ──
   { id: 'gap-account-verification',
     note: "Account housekeeping with no date and no consequence. Was a known gap until the housekeeping rule landed; kept under its original id because the id is how the corpus is cited.",

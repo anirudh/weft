@@ -105,6 +105,14 @@ however firm the date:
   reader does nothing. Privacy policy revisions, consent preference updates, new terms
   of service. Accepting the default is a normal outcome, not a failure. A change to
   what the reader PAYS is a different thing and belongs.
+- Newsletters and round-ups. A club or company digest with many unrelated sections —
+  classes opening, courts closing, a member discount, an event next month, a billing
+  reminder that applies to everybody — is ONE ambient item, not a list of obligations.
+  Read it as a whole and return nothing. The rule below about a single email carrying
+  several obligations is the opposite case: it is for mail where every part concerns
+  this reader, like a welcome pack for their own enrolment. If a digest does contain
+  something addressed to this reader personally — their booking, their balance, their
+  child's place — extract that one thing and nothing else from it.
 - Events the reader is not actually going to: a webinar, summit, launch or party
   being advertised to a mailing list. The dividing line is whether this reader is
   booked in — they registered, RSVP'd, were invited by name, or it is on their

@@ -40,6 +40,18 @@ describe('deadlines', () => {
     expect(score(soon, NOW)).toBeLessThan(score(due, NOW));
   });
 
+  it('lets a live deadline outrank a passed one', () => {
+    // The case from a real Horizon: a Figma renewal three days gone was tying
+    // with things genuinely due in a week. The live one deserves the attention.
+    const passed = at({ anchorDate: '2026-08-20' });   // three days ago
+    const live = at({ anchorDate: '2026-08-30' });     // in seven days
+    expect(score(live, NOW)).toBeGreaterThan(score(passed, NOW));
+  });
+
+  it('recedes a deadline more than a week past', () => {
+    expect(bucket(at({ anchorDate: '2026-08-14' }), NOW)).toBe('receded');
+  });
+
   it('holds one day of grace, then rots', () => {
     // A domain that expired on 30 July is not today's work on 23 August.
     // This is the case that put "Shop the Northwind Supply sale" at the top of a
@@ -65,11 +77,23 @@ describe('deadlines', () => {
     expect(whenLabel(at({ anchorDate: '2026-08-19' }), NOW)).toBe('Still open?');
   });
 
-  it('keeps an undated obligation visible rather than inventing urgency', () => {
-    const undated = at({ anchorDate: null });
+  it('keeps a fresh undated obligation visible rather than inventing urgency', () => {
+    const undated = at({ anchorDate: null, lastMessageAt: NOW });
     expect(bucket(undated, NOW)).toBe('this_week');
     expect(whenLabel(undated, NOW)).toBe('No date given');
     expect(score(undated, NOW)).toBeLessThan(score(at({ anchorDate: '2026-08-23' }), NOW));
+  });
+
+  it('decays an undated obligation on the age of its thread', () => {
+    // A camp waiver whose own detail said "Monday August 3rd" sat mid-list
+    // three weeks later, because the model quoted "first day" and the anchor
+    // validator rightly threw the date away. Undated is not timeless.
+    const fresh = at({ anchorDate: null, lastMessageAt: NOW });
+    const fortnight = at({ anchorDate: null, lastMessageAt: new Date(2026, 7, 9).getTime() });
+    const stale = at({ anchorDate: null, lastMessageAt: new Date(2026, 7, 1).getTime() });
+    expect(score(fortnight, NOW)).toBeLessThan(score(fresh, NOW));
+    expect(score(stale, NOW)).toBeLessThan(score(fortnight, NOW));
+    expect(bucket(stale, NOW)).toBe('receded');
   });
 });
 
