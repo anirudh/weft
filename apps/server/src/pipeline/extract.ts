@@ -5,6 +5,7 @@ import { db, schema } from '../db/index.js';
 import { env } from '../env.js';
 import { generateJson, type ThinkingLevel } from '../vertex/client.js';
 import { validateAnchor } from './anchor.js';
+import { alreadySettled } from './settled.js';
 
 const MAX_MESSAGES = 20;
 const MAX_CHARS = 12_000;
@@ -270,9 +271,11 @@ ${a.threadText}
 export type ExtractProgress = {
   state: 'idle' | 'running' | 'done' | 'error';
   done: number; total: number; obligations: number; capped: number;
+  /** Dropped because the source said they were already taken care of. */
+  settled: number;
   tokensIn: number; tokensOut: number; failures: number; error?: string;
 };
-let progress: ExtractProgress = { state: 'idle', done: 0, total: 0, obligations: 0, capped: 0, tokensIn: 0, tokensOut: 0, failures: 0 };
+let progress: ExtractProgress = { state: 'idle', done: 0, total: 0, obligations: 0, capped: 0, settled: 0, tokensIn: 0, tokensOut: 0, failures: 0 };
 export const getExtractProgress = () => progress;
 
 /** Head-and-tail truncation: the request is usually at the start, the current state at the end. */
@@ -314,7 +317,7 @@ export async function runExtraction(limit?: number): Promise<ExtractProgress> {
     (await db.select().from(schema.accounts)).map((a) => [a.id, a.email]),
   );
 
-  progress = { state: 'running', done: 0, total: pending.length, obligations: 0, capped: 0, tokensIn: 0, tokensOut: 0, failures: 0 };
+  progress = { state: 'running', done: 0, total: pending.length, obligations: 0, capped: 0, settled: 0, tokensIn: 0, tokensOut: 0, failures: 0 };
   const today = new Date().toISOString().slice(0, 10);
 
   try {
@@ -361,6 +364,13 @@ export async function runExtraction(limit?: number): Promise<ExtractProgress> {
 
         const now = Date.now();
         for (const o of parsed.data.obligations) {
+          // Verified against the source, like the anchor is. The model is told
+          // that an enrolled auto-pay is not an obligation and still says it is
+          // about a quarter of the time on real mail.
+          if (alreadySettled({ title: o.title, detail: o.detail, source: text })) {
+            progress.settled++;
+            continue;
+          }
           const anchor = validateAnchor({ anchorDate: o.anchorDate, anchorIsExplicit: o.anchorIsExplicit, anchorQuote: o.anchorQuote });
           await db.insert(schema.obligations).values({
             accountId: t.accountId,

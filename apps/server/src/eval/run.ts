@@ -17,6 +17,7 @@ import { ExtractionResult } from '@weft/shared';
 import { env } from '../env.js';
 import { generateJson, type ThinkingLevel } from '../vertex/client.js';
 import { SYSTEM, SCHEMA, buildExtractionPrompt, buildThreadText } from '../pipeline/extract.js';
+import { alreadySettled } from '../pipeline/settled.js';
 
 type Fixture = {
   id: string; note: string; today: string; subject: string; knownGap?: boolean;
@@ -41,7 +42,7 @@ const fixtures: Fixture[] = readdirSync(DIR)
   .filter((f) => !ONLY || f.id.includes(ONLY))
   .sort((a, b) => a.id.localeCompare(b.id));
 
-type Obl = { court: string; temporalClass: string; anchorDate: string; title: string };
+type Obl = { court: string; temporalClass: string; anchorDate: string; title: string; detail: string };
 
 async function once(f: Fixture): Promise<{ obligations: Obl[]; tokens: number; thoughts: number }> {
   const { text } = buildThreadText(
@@ -59,7 +60,13 @@ async function once(f: Fixture): Promise<{ obligations: Obl[]; tokens: number; t
   });
   const parsed = ExtractionResult.safeParse(data);
   if (!parsed.success) throw new Error('schema mismatch');
-  return { obligations: parsed.data.obligations as unknown as Obl[], tokens: usage.promptTokens + usage.outputTokens, thoughts: usage.thoughtTokens };
+  // The pipeline drops obligations the source says are already handled, so the
+  // suite has to as well — otherwise it scores the model rather than the thing
+  // that actually ships.
+  const kept = (parsed.data.obligations as unknown as Obl[]).filter(
+    (o) => !alreadySettled({ title: o.title, detail: o.detail, source: text }),
+  );
+  return { obligations: kept, tokens: usage.promptTokens + usage.outputTokens, thoughts: usage.thoughtTokens };
 }
 
 /** Why a run failed, in the fewest words that let you act on it. */
