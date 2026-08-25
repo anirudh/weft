@@ -1,0 +1,156 @@
+/* Palette from artboard N. One accent; no alarm colour anywhere — urgency is
+   carried by order, position and wording, never by red. */
+:root {
+  --ground: #ffffff;
+  --rail: #f7f9fd;
+  --tint: #f1f5fc;
+  --ink: #0f1420;
+  --body: #39414f;
+  --muted: #6e7787;
+  --faint: #a3abb8;
+  --hairline: #e1e6ee;
+  --line-soft: #edf0f5;
+  --cobalt: #17439b;
+  --cobalt-soft: #c9d6ee;
+  --cobalt-dim: #8fa5cf;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: Inter, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.tabs {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 58px; padding: 0 40px;
+  background: var(--rail); border-bottom: 1px solid var(--hairline);
+}
+.tabs-left { display: flex; align-items: center; gap: 30px; height: 58px; }
+.wordmark { font-family: Newsreader, serif; font-size: 20px; font-weight: 600; letter-spacing: -0.02em; }
+.tab { font-size: 14px; color: var(--muted); }
+.tab-active {
+  display: flex; align-items: center; height: 58px;
+  border-bottom: 2px solid var(--cobalt);
+  font-size: 14px; font-weight: 600; color: var(--cobalt);
+}
+
+.body { padding: 34px 40px 46px; }
+.title-row { display: flex; align-items: baseline; gap: 14px; padding-bottom: 24px; }
+.title { font-family: Newsreader, serif; font-size: 28px; font-weight: 600; letter-spacing: -0.02em; }
+.title-meta { font-size: 13px; color: var(--muted); }
+
+.section { padding: 26px 0 30px; border-top: 1px solid var(--hairline); }
+.section-label {
+  font-size: 11px; font-weight: 500; letter-spacing: 0.09em;
+  text-transform: uppercase; color: var(--muted);
+}
+.headline {
+  font-family: Newsreader, serif; font-size: 38px; font-weight: 600;
+  line-height: 46px; letter-spacing: -0.022em; max-width: 940px; margin: 18px 0 0;
+}
+
+.empty { color: var(--faint); font-size: 15px; padding: 18px 0; }
+.cta {
+  display: inline-flex; background: var(--cobalt); color: #fff;
+  font-size: 13px; font-weight: 600; padding: 9px 16px; border-radius: 3px;
+  border: none; cursor: pointer; font-family: inherit;
+}
+
+.accounts { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; padding-bottom: 4px; }
+.account { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--body); }
+.account-dot { width: 6px; height: 6px; border-radius: 3px; background: var(--cobalt); }
+.account-meta { color: var(--faint); }
+.account-stale .account-dot { background: var(--faint); }
+.account-fix, .account-add { color: var(--cobalt); font-size: 13px; font-weight: 500; text-decoration: none; }
+.account-add { padding: 5px 11px; background: var(--tint); border-radius: 12px; }
+
+.notes { margin: 18px 0 0; padding: 0 0 0 22px; max-width: 1000px; }
+.notes li { font-size: 16px; line-height: 25px; color: var(--body); margin-bottom: 10px; }
+.notes li::marker { color: var(--cobalt); font-weight: 600; font-size: 14px; }
+
+.section-head { display: flex; align-items: baseline; gap: 10px; }
+.section-note { font-size: 12px; color: var(--faint); }
+
+.mail { width: 100%; border-collapse: collapse; margin-top: 16px; font-size: 14px; }
+.mail th {
+  text-align: left; font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--faint);
+  padding: 0 16px 9px 0; border-bottom: 1px solid var(--hairline);
+}
+.mail td { padding: 13px 16px 13px 0; border-bottom: 1px solid var(--line-soft); vertical-align: baseline; }
+.mail tr:hover td { background: var(--tint); }
+.col-rank { width: 34px; color: var(--cobalt); font-weight: 600; }
+.col-sender { width: 220px; font-weight: 600; color: var(--ink); }
+.col-subject { color: var(--body); }
+.col-date { width: 70px; text-align: right; color: var(--faint); padding-right: 0 !important; white-space: nowrap; }
+.sent-tag {
+  display: inline-block; margin-right: 7px; padding: 1px 5px; border-radius: 2px;
+  background: var(--tint); color: var(--cobalt); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase; vertical-align: 1px;
+}
+.faint { color: var(--faint); }
+
+.courts { display: flex; gap: 56px; margin-top: 18px; }
+.court { flex: 1; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.court-label { font-size: 13px; font-weight: 600; color: var(--ink); padding-bottom: 4px; }
+.court-label-quiet { color: var(--muted); }
+
+.loop { display: flex; flex-direction: column; gap: 11px; padding: 15px 18px 16px;
+        border: 1px solid var(--hairline); border-radius: 4px; }
+.loop-primary { background: var(--tint); border: none; border-left: 3px solid var(--cobalt); }
+.loop-done { background: #fafbfd; border-color: var(--line-soft); }
+.loop-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.loop-when { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.loop-when-now { color: var(--cobalt); }
+.loop-account { font-size: 12px; color: var(--faint); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.loop-title { font-size: 17px; font-weight: 600; line-height: 25px; color: var(--ink); }
+.loop-title-done { color: var(--faint); text-decoration: line-through; font-weight: 500; }
+.loop-detail { font-size: 14px; color: var(--muted); }
+.loop-actions { display: flex; align-items: center; justify-content: space-between; padding-top: 4px; }
+.btn { display: inline-flex; padding: 7px 16px; border: 1px solid var(--cobalt-soft); border-radius: 3px;
+       background: #fff; color: var(--cobalt); font-size: 13px; font-weight: 600; text-decoration: none; }
+.btn-quiet { background: none; border: none; padding: 0; cursor: pointer;
+             font-family: inherit; font-size: 13px; font-weight: 500; color: var(--muted); }
+
+.week { display: flex; gap: 8px; margin-top: 16px; }
+.day { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 9px;
+       padding: 12px 13px 14px; border-top: 2px solid var(--hairline); }
+.day-full { background: var(--rail); border-radius: 3px; border-top-color: var(--cobalt-soft); }
+.day-today { background: var(--tint); border-radius: 3px; border-top-color: var(--cobalt); }
+.day-label { font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); }
+.day-label-today { color: var(--cobalt); }
+.day-empty { font-size: 14px; color: var(--faint); }
+.day-item { font-size: 14px; line-height: 20px; color: var(--ink); font-weight: 500; }
+
+/* Says this line stands for more than one email, so a merged row never reads
+   as if Weft simply missed the others. */
+.loop-merged {
+  margin-right: 8px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--tint);
+  color: var(--cobalt);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+
+/* Two ways to close a loop. Dismiss is deliberately the fainter of the two —
+   saying "this will not happen" should take a moment's intent, not a reflex. */
+.loop-clear { display: inline-flex; align-items: center; gap: 14px; }
+.btn-faint {
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--faint);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.btn-faint:hover:not(:disabled) { color: var(--body); }
+.btn-faint:disabled, .btn-quiet:disabled { opacity: 0.4; cursor: default; }
+.court-label-spaced { display: block; margin-top: 26px; }

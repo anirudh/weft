@@ -1,0 +1,23 @@
+{
+  "name": "weft",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "concurrently -n server,web -c blue,magenta \"npm:dev:server\" \"npm:dev:web\"",
+    "dev:server": "npm run dev --workspace=@weft/server",
+    "dev:web": "npm run dev --workspace=@weft/web",
+    "build": "npm run build --workspace=@weft/web",
+    "test": "npm run test --workspace=@weft/server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "typescript": "^5.7.2"
+  }
+}
