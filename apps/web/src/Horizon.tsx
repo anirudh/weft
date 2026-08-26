@@ -3,11 +3,24 @@ import type { HorizonPayload, Obligation } from '@weft/shared';
 import { clearObligation, fetchHorizon, setSubscriptionState } from './api.js';
 import { Accounts } from './components/Accounts.js';
 import { MailTable } from './components/MailTable.js';
-import { OpenLoops } from './components/OpenLoops.js';
+import { ClearedLoops, OpenLoops } from './components/OpenLoops.js';
 import { ThisWeek } from './components/ThisWeek.js';
 
-const dateLabel = (iso: string) =>
-  new Date(iso).toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' });
+const dateLabel = (iso: string) => {
+  if (iso.length > 10) {
+    return new Date(iso).toLocaleDateString('en-GB', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+    });
+  }
+  const [year = 1970, month = 1, day = 1] = iso.slice(0, 10).split('-').map(Number);
+  return new Date(year, month - 1, day).toLocaleDateString('en-GB', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+  });
+};
 
 export function Horizon() {
   const [data, setData] = useState<HorizonPayload | null>(null);
@@ -90,80 +103,90 @@ export function Horizon() {
   if (!data) return <main className="body"><p className="empty">Loading…</p></main>;
 
   const connected = data.accounts.length > 0;
+  const needsAccountAttention = !connected || data.accounts.some((account) => account.needsReconnect);
   const open = data.openLoops.yours.length + data.openLoops.theirs.length;
+  const cleared = data.openLoops.completed.length + data.openLoops.dismissed.length;
 
   return (
-    <>
-      <main className="body">
-        <div className="title-row">
-          <h1 className="title">{dateLabel(data.date)}</h1>
-          <span className="title-meta">
-            {connected ? `${data.stats.messagesTotal.toLocaleString()} messages synced` : 'no accounts connected'}
-          </span>
+    <main className="body-horizon">
+      <header className="horizon-brief">
+        <div className="horizon-date-row">
+          <h1 className="horizon-date">{dateLabel(data.date)}</h1>
+          {data.edition?.stale && <span className="horizon-brief-status">rewriting…</span>}
         </div>
 
-        <Accounts accounts={data.accounts} />
-
-        <section className="section">
-          <div className="section-head">
-            <span className="section-label">State</span>
-            {data.edition?.stale && <span className="section-note">rewriting…</span>}
-          </div>
+        <section aria-label="Daily state brief">
           {data.edition ? (
             <>
-              <h2 className="headline">{data.edition.headline}</h2>
-              <ol className="notes">
-                {data.edition.notes.map((n, i) => <li key={i}>{n}</li>)}
-              </ol>
+              <h2 className="horizon-headline">{data.edition.headline}</h2>
+              <div className="horizon-notes">
+                {data.edition.notes.map((note, index) => <p key={index}>{note}</p>)}
+              </div>
             </>
           ) : connected ? (
             <>
-              <h2 className="headline">Nothing read yet.</h2>
-              <p className="empty">Pull the last 30 days to see a brief here.</p>
+              <h2 className="horizon-headline">Mail is being read in the background.</h2>
+              <p className="horizon-empty">This page updates automatically after launch or refresh.</p>
             </>
           ) : (
             <>
-              <h2 className="headline">Connect a mailbox to begin.</h2>
-              <p className="empty">
+              <h2 className="horizon-headline">Connect a mailbox to begin.</h2>
+              <p className="horizon-empty">
                 Weft asks for read-only access. It cannot label, send, archive or delete anything.
               </p>
             </>
           )}
         </section>
 
-        <section className="section">
-          <div className="section-head">
-            <span className="section-label">Open loops</span>
-            <span className="section-note">
-              {open === 0 ? 'nothing open' : `${open} open across ${data.accounts.length} mailboxes`}
-            </span>
-          </div>
+        {needsAccountAttention && <div className="horizon-account-alert"><Accounts accounts={data.accounts} /></div>}
+      </header>
+
+      <div className="horizon-grid">
+        <section className="horizon-main" aria-label={`${open} open loops`}>
           <OpenLoops
-          onDecide={onDecide} {...data.openLoops} onClear={onClear} busy={busy} />
+            {...data.openLoops}
+            onClear={onClear}
+            onDecide={onDecide}
+            busy={busy}
+            compact
+            showCleared={false}
+          />
+
+          <div className="horizon-disclosures">
+            <details className="horizon-disclosure">
+              <summary>
+                <span className="disclosure-label">
+                  <span className="disclosure-closed">Cleared today · collapsed</span>
+                  <span className="disclosure-open">Cleared today · {cleared}</span>
+                </span>
+                <span className="disclosure-closed">Show</span>
+                <span className="disclosure-open">Hide</span>
+              </summary>
+              {cleared === 0
+                ? <p className="horizon-disclosure-empty">Nothing cleared today.</p>
+                : <ClearedLoops {...data.openLoops} onClear={onClear} onDecide={onDecide} busy={busy} compact />}
+            </details>
+
+            <details className="horizon-disclosure">
+              <summary>
+                <span className="disclosure-label">
+                  <span className="disclosure-closed">Mail · collapsed</span>
+                  <span className="disclosure-open">Mail · {data.mail.length}</span>
+                </span>
+                <span className="disclosure-closed">Show</span>
+                <span className="disclosure-open">Hide</span>
+              </summary>
+              {data.mail.length === 0
+                ? <p className="horizon-disclosure-empty">No mail synced yet.</p>
+                : <div className="horizon-mail-scroll"><MailTable rows={data.mail} ranked={false} /></div>}
+            </details>
+          </div>
         </section>
 
-        <section className="section">
-          <div className="section-head">
-            <span className="section-label">This week</span>
-            <span className="section-note">every commitment and deadline, by the day it falls on</span>
-          </div>
-          <ThisWeek days={data.week} later={data.later} />
-        </section>
-
-        <section className="section">
-          <div className="section-head">
-            <span className="section-label">Mail</span>
-            <span className="section-note">
-              {data.stats.messagesTotal === 0
-                ? 'nothing synced yet'
-                : `sorted by relevance \u2014 ${data.stats.messagesSkipped.toLocaleString()} bulk messages never shown`}
-            </span>
-          </div>
-          {data.mail.length === 0
-            ? <p className="empty">No mail synced yet.</p>
-            : <MailTable rows={data.mail} ranked={false} />}
-        </section>
-      </main>
-    </>
+        <aside className="horizon-rail" aria-label="Next seven days">
+          <ThisWeek days={data.week} later={data.later} compact />
+        </aside>
+      </div>
+    </main>
   );
 }

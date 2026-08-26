@@ -28,7 +28,15 @@ export function MailTable({ rows, ranked }: { rows: MailRow[]; ranked: boolean }
               {m.isSent && <span className="sent-tag">sent</span>}
               {m.fromName || m.fromEmail}
             </td>
-            <td className="col-subject">{m.subject || <span className="faint">(no subject)</span>}</td>
+            <td className="col-subject">
+              <a
+                href={`https://mail.google.com/mail/u/${encodeURIComponent(m.accountEmail)}/#all/${m.threadId}`}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {m.subject || <span className="faint">(no subject)</span>}
+              </a>
+            </td>
             <td className="col-date">{when(m.receivedAt)}</td>
           </tr>
         ))}
